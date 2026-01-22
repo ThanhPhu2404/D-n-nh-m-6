@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Giao Thông Thông Minh - Giám sát phương tiện</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- CSS Libraries -->
+  <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+
+  <!-- CSRF token meta -->
+  <meta name="csrf-token" content="{{ csrf_token }}">
+
+  <style>
+    /* Giữ lại các style bạn đã có */
+  </style>
+</head>
+
+<body>
+  <div class="container-xxl bg-white p-0">
+    <!-- Navbar -->
+    <!-- Navbar Start -->
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
+      >
+        <a
+          href="index.html"
+          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
+        >
+          <h1 class="m-0 text-primary">JobEntry</h1>
+        </a>
+        <button
+          type="button"
+          class="navbar-toggler me-4"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
+            <a href="about.html" class="nav-item nav-link"
+              >Giám sát trực tuyến </a
+            >
+            <div class="nav-item dropdown">
+                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+              </div>
+            </div>
+            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
+            <a href="contact.html" class="nav-item nav-link"
+              >Thống kê giao thông</a
+            >
+          </div>
+          <a
+            href=""
+            class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"
+            >Post A Job<i class="fa fa-arrow-right ms-3"></i
+          ></a>
+        </div>
+      </nav>
+      <!-- Navbar End -->
+
+
+    <!-- Header -->
+    <div class="container-xxl py-5 page-header mb-5"
+      style="background: linear-gradient(rgba(43, 57, 64, 0.5), rgba(43, 57, 64, 0.5)),
+             url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+             background-size: cover;">
+      <div class="container my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">
+          Giám sát phương tiện giao thông
+        </h1>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <h2 class="mb-4 text-center">Phát hiện, đếm và đo tốc độ phương tiện</h2>
+
+        <!-- Video hiển thị -->
+        <div class="text-center mb-4">
+          <video id="traffic-video" width="800" height="450" controls muted>
+            <source src="{% static 'img/dovantoc.mp4' %}" type="video/mp4" />
+            Trình duyệt của bạn không hỗ trợ video.
+          </video>
+        </div>
+
+        <!-- Nút bắt đầu giám sát -->
+        <div class="text-center mb-4">
+          <button id="btn-detect" class="btn btn-primary btn-lg px-4">
+            <i class="fas fa-search"></i> Bắt đầu giám sát
+          </button>
+        </div>
+
+        <!-- Hiển thị kết quả đếm xe -->
+        <div class="row text-center mb-4">
+          <div class="col-md-3">
+            <div class="count-box p-3 border rounded shadow-sm bg-light">
+              <i class="fas fa-car fa-2x text-primary mb-2"></i>
+              <h5>Xe con</h5>
+              <p id="count_car" class="fs-4 fw-bold">0</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="count-box p-3 border rounded shadow-sm bg-light">
+              <i class="fas fa-truck fa-2x text-success mb-2"></i>
+              <h5>Xe tải</h5>
+              <p id="count_truck" class="fs-4 fw-bold">0</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="count-box p-3 border rounded shadow-sm bg-light">
+              <i class="fas fa-bus fa-2x text-warning mb-2"></i>
+              <h5>Xe buýt</h5>
+              <p id="count_bus" class="fs-4 fw-bold">0</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="count-box p-3 border rounded shadow-sm bg-light">
+              <i class="fas fa-motorcycle fa-2x text-danger mb-2"></i>
+              <h5>Xe máy</h5>
+              <p id="count_motorbike" class="fs-4 fw-bold">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mb-5">
+          <h4>Tổng số phương tiện: <span id="total_vehicles" class="text-primary fw-bold fs-3">0</span></h4>
+        </div>
+
+        <!-- Bảng đo vận tốc phương tiện luôn hiển thị -->
+        <div class="mb-3 text-center">
+          <h3>Bảng đo vận tốc phương tiện</h3>
+        </div>
+        <div class="table-responsive shadow rounded" id="vehicle-table-container">
+          <table class="table table-bordered table-striped align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Loại phương tiện</th>
+                <th>Tốc độ (km/h)</th>
+              </tr>
+            </thead>
+            <tbody id="vehicle-table-body">
+              <tr>
+                <td colspan="3" class="text-center text-muted">Chưa có dữ liệu tốc độ phương tiện</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-md-6 col-lg-4">
+            <h5 class="text-white mb-4">Liên hệ</h5>
+            <p><i class="fa fa-map-marker-alt me-3"></i>123 Đường ABC, Hà Nội</p>
+            <p><i class="fa fa-phone-alt me-3"></i>+84 912 345 678</p>
+            <p><i class="fa fa-envelope me-3"></i>info@giaothong.vn</p>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <h5 class="text-white mb-4">Kết nối</h5>
+            <div class="d-flex pt-2">
+              <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
+              <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top">
+      <i class="bi bi-arrow-up"></i>
+    </a>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- Custom Vehicle Detection & Speed Script -->
+  <script>
+    document.getElementById('btn-detect').addEventListener('click', () => {
+      const btn = document.getElementById('btn-detect');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang giám sát...';
+
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+      fetch("{% url 'vehicle_speed_api' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        // Cập nhật số lượng từng loại xe
+        document.getElementById('count_car').innerText = data.counts?.car || 0;
+        document.getElementById('count_truck').innerText = data.counts?.truck || 0;
+        document.getElementById('count_bus').innerText = data.counts?.bus || 0;
+        document.getElementById('count_motorbike').innerText = data.counts?.motorbike || 0;
+
+        // Tổng số xe
+        document.getElementById('total_vehicles').innerText = data.total_vehicles || 0;
+
+        // Cập nhật bảng tốc độ
+        const vehicleTableBody = document.getElementById('vehicle-table-body');
+        vehicleTableBody.innerHTML = '';
+
+        if (data.vehicles && data.vehicles.length > 0) {
+          data.vehicles.forEach((vehicle, idx) => {
+            const speed = vehicle.speed !== undefined ? parseFloat(vehicle.speed).toFixed(1) : '-';
+            const row = `
+              <tr>
+                <td>${idx + 1}</td>
+                <td>${vehicle.type}</td>
+                <td>${speed} km/h</td>
+              </tr>
+            `;
+            vehicleTableBody.insertAdjacentHTML('beforeend', row);
+          });
+        } else {
+          vehicleTableBody.innerHTML = `
+            <tr>
+              <td colspan="3" class="text-center text-muted">Chưa có dữ liệu tốc độ phương tiện</td>
+            </tr>
+          `;
+        }
+
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Giám sát hoàn tất';
+      })
+      .catch(error => {
+        alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
+        console.error(error);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-search"></i> Bắt đầu giám sát';
+      });
+    });
+  </script>
+</body>
+</html>

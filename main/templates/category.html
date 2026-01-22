@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Báo Cáo Phương Tiện - Vehicle Monitoring</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+
+<!-- Navbar Start -->
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
+      >
+        <a
+          href="index.html"
+          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
+        >
+          <h1 class="m-0 text-primary">JobEntry</h1>
+        </a>
+        <button
+          type="button"
+          class="navbar-toggler me-4"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
+            <a href="about.html" class="nav-item nav-link"
+              >Giám sát trực tuyến </a
+            >
+            <div class="nav-item dropdown">
+                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+              </div>
+            </div>
+            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
+            <a href="contact.html" class="nav-item nav-link"
+              >Thống kê giao thông</a
+            >
+          </div>
+          <a
+            href=""
+            class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"
+            >Post A Job<i class="fa fa-arrow-right ms-3"></i
+          ></a>
+        </div>
+      </nav>
+      <!-- Navbar End -->
+
+
+        <!-- Header Start -->
+        <div class="container-xxl py-5 page-header mb-5"
+            style="background: linear-gradient(rgba(43, 57, 64, 0.5), rgba(43, 57, 64, 0.5)), 
+            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat; background-size: cover;">
+            <div class="container my-5 pt-5 pb-4">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Báo cáo</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-uppercase">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Báo cáo</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+        <!-- Report Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Thống kê giám sát giao thông</h2>
+
+                <!-- Bộ lọc -->
+                <form class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <label>Từ ngày:</label>
+                        <input type="date" class="form-control" name="start_date">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Đến ngày:</label>
+                        <input type="date" class="form-control" name="end_date">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Khu vực:</label>
+                        <select class="form-select" name="location">
+                            <option>Tất cả</option>
+                            <option>Camera 1</option>
+                            <option>Camera 2</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Lọc dữ liệu</button>
+                    </div>
+                </form>
+
+                <!-- Kết quả -->
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="bg-light rounded text-center p-4">
+                            <h5>Số lượng phương tiện</h5>
+                            <h2>12,435</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light rounded text-center p-4">
+                            <h5>Vận tốc trung bình</h5>
+                            <h2>43.7 km/h</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light rounded text-center p-4">
+                            <h5>Thời điểm cao điểm</h5>
+                            <h2>07:00 - 08:30</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder Biểu đồ -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <canvas id="trafficChart" style="height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Report End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-4">
+                        <h5 class="text-white mb-4">Vehicle Monitor</h5>
+                        <p>Hệ thống theo dõi và thống kê phương tiện giao thông theo thời gian thực.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="text-white mb-4">Liên hệ</h5>
+                        <p><i class="fa fa-map-marker-alt me-3"></i>Hà Nội, Việt Nam</p>
+                        <p><i class="fa fa-envelope me-3"></i>support@vehiclemonitor.vn</p>
+                        <p><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="text-white mb-4">Kết nối</h5>
+                        <div class="d-flex">
+                            <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // Biểu đồ giả lập - bạn nên load từ API Django
+            const ctx = document.getElementById('trafficChart');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['6:00', '7:00', '8:00', '9:00', '10:00'],
+                    datasets: [{
+                        label: 'Số lượng phương tiện',
+                        data: [120, 320, 210, 180, 90],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Phương tiện theo giờ'
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>
