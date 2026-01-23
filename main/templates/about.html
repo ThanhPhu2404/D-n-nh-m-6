@@ -1,9 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8" />
-  <title>Giao Thông Thông Minh - Giám sát phương tiện</title>
+  <title>Giám Sát Trực Tuyến - Hệ Thống Giao Thông Thông Minh</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
   <!-- Fonts & Icons -->
@@ -23,143 +23,298 @@
   <!-- CSRF token meta -->
   <meta name="csrf-token" content="{{ csrf_token }}">
 
-  
+  <style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #00B98E 0%, #0D6EFD 100%);
+        --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-header-modern {
+        background: linear-gradient(135deg, rgba(0, 185, 142, 0.9) 0%, rgba(13, 110, 253, 0.9) 100%),
+                    url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+        background-size: cover;
+        padding: 100px 0 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
+        opacity: 0.5;
+    }
+
+    .video-container {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-elevated);
+        background: #000;
+        transition: transform 0.3s ease;
+    }
+
+    .video-container:hover {
+        transform: scale(1.02);
+    }
+
+    .video-container video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .stats-box {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        height: 100%;
+    }
+
+    .stats-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 185, 142, 0.15);
+        border-color: #00B98E;
+    }
+
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+    }
+
+    .btn-detect {
+        background: var(--primary-gradient);
+        border: none;
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0, 185, 142, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .btn-detect:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0, 185, 142, 0.4);
+        color: white;
+    }
+
+    .btn-detect:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow-elevated);
+    }
+
+    .table-modern thead {
+        background: var(--primary-gradient);
+        color: white;
+    }
+
+    .table-modern thead th {
+        border: none;
+        padding: 18px;
+        font-weight: 600;
+    }
+
+    .table-modern tbody td {
+        padding: 15px 18px;
+        vertical-align: middle;
+    }
+
+    .table-modern tbody tr {
+        transition: background 0.2s ease;
+    }
+
+    .table-modern tbody tr:hover {
+        background: rgba(0, 185, 142, 0.05);
+    }
+
+    .total-counter {
+        background: var(--primary-gradient);
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: var(--shadow-elevated);
+        text-align: center;
+    }
+
+    .total-counter h4 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        opacity: 0.9;
+    }
+
+    .total-counter .count {
+        font-size: 3rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+  </style>
 </head>
 
 <body>
   <div class="container-xxl bg-white p-0">
-   <!-- Navbar Start -->
-      <nav
-        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
-      >
-        <a
-          href="index.html"
-          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
-        >
-          <h1 class="m-0 text-primary">JobEntry</h1>
-        </a>
-        <button
-          type="button"
-          class="navbar-toggler me-4"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-            <a href="about.html" class="nav-item nav-link"
-              >Giám sát trực tuyến </a
-            >
-            <div class="nav-item dropdown">
-                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
-              </div>
-            </div>
-            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
-            <a href="contact.html" class="nav-item nav-link"
-              >Thống kê giao thông</a
-            >
-          </div>
-          <a
-            href=""
-            class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"
-            >Post A Job<i class="fa fa-arrow-right ms-3"></i
-          ></a>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+      <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+        <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+      </a>
+      <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          <a href="index.html" class="nav-item nav-link">Trang chủ</a>
+          <a href="about.html" class="nav-item nav-link active">Giám sát trực tuyến</a>
+          <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+          <a href="category.html" class="nav-item nav-link">Báo Cáo</a>
+          <a href="contact.html" class="nav-item nav-link">Thống kê giao thông</a>
         </div>
-      </nav>
-      <!-- Navbar End -->
-
+        <a href="job-detail.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
+          Bản Đồ Camera<i class="fa fa-arrow-right ms-3"></i>
+        </a>
+      </div>
+    </nav>
+    <!-- Navbar End -->
 
     <!-- Header -->
-    <div class="container-xxl py-5 page-header mb-5"
-         style="background: linear-gradient(rgba(43, 57, 64, 0.5), rgba(43, 57, 64, 0.5)),
-                url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
-                background-size: cover;">
-      <div class="container my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">
-          Giám sát phương tiện giao thông
+    <div class="page-header-modern">
+      <div class="container my-5 pt-5 pb-4 position-relative">
+        <h1 class="display-3 text-white mb-3 animated slideInDown fw-bold">
+          <i class="fas fa-video me-3"></i>Giám Sát Phương Tiện Giao Thông
         </h1>
+        <p class="text-white fs-5 mb-0">Theo dõi và phân tích lưu lượng xe trong thời gian thực</p>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="container-xxl py-5">
       <div class="container">
-        <h2 class="mb-4 text-center">Phát hiện, đếm và đo tốc độ phương tiện</h2>
+        <div class="text-center mb-5">
+          <h2 class="display-6 fw-bold mb-3">Phát Hiện, Đếm Và Phân Loại Phương Tiện</h2>
+          <p class="text-muted fs-5">Công nghệ AI nhận diện chính xác và nhanh chóng</p>
+        </div>
 
         <!-- Video hiển thị -->
-        <div class="text-center mb-4">
-          <video id="traffic-video" width="800" height="450" controls autoplay muted>
-            <source src="{% static 'img/road.mp4' %}" type="video/mp4" />
-            Trình duyệt của bạn không hỗ trợ video.
-          </video>
+        <div class="text-center mb-5">
+          <div class="video-container mx-auto" style="max-width: 900px;">
+            <video id="traffic-video" controls autoplay muted>
+              <source src="{% static 'img/road.mp4' %}" type="video/mp4" />
+              Trình duyệt của bạn không hỗ trợ video.
+            </video>
+          </div>
         </div>
 
         <!-- Nút bắt đầu giám sát -->
-        <div class="text-center mb-4">
-          <button id="btn-detect" class="btn btn-primary btn-lg px-4">
-            <i class="fas fa-search"></i> Bắt đầu giám sát
+        <div class="text-center mb-5">
+          <button id="btn-detect" class="btn btn-detect">
+            <i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát
           </button>
         </div>
 
         <!-- Hiển thị kết quả đếm xe -->
-        <div class="row text-center mb-4">
+        <div class="row g-4 mb-5">
           <div class="col-md-3">
-            <div class="count-box p-3 border rounded shadow-sm bg-light">
-              <i class="fas fa-car fa-2x text-primary mb-2"></i>
-              <h5>Xe con</h5>
-              <p id="count_car" class="fs-4 fw-bold">0</p>
+            <div class="stats-box">
+              <div class="stats-icon">
+                <i class="fas fa-car fa-2x text-white"></i>
+              </div>
+              <h5 class="text-center mb-2">Xe Con</h5>
+              <p id="count_car" class="fs-2 fw-bold text-center text-primary mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="count-box p-3 border rounded shadow-sm bg-light">
-              <i class="fas fa-truck fa-2x text-success mb-2"></i>
-              <h5>Xe tải</h5>
-              <p id="count_truck" class="fs-4 fw-bold">0</p>
+            <div class="stats-box">
+              <div class="stats-icon">
+                <i class="fas fa-truck fa-2x text-white"></i>
+              </div>
+              <h5 class="text-center mb-2">Xe Tải</h5>
+              <p id="count_truck" class="fs-2 fw-bold text-center text-success mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="count-box p-3 border rounded shadow-sm bg-light">
-              <i class="fas fa-bus fa-2x text-warning mb-2"></i>
-              <h5>Xe buýt</h5>
-              <p id="count_bus" class="fs-4 fw-bold">0</p>
+            <div class="stats-box">
+              <div class="stats-icon">
+                <i class="fas fa-bus fa-2x text-white"></i>
+              </div>
+              <h5 class="text-center mb-2">Xe Buýt</h5>
+              <p id="count_bus" class="fs-2 fw-bold text-center text-warning mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="count-box p-3 border rounded shadow-sm bg-light">
-              <i class="fas fa-motorcycle fa-2x text-danger mb-2"></i>
-              <h5>Xe máy</h5>
-              <p id="count_motorbike" class="fs-4 fw-bold">0</p>
+            <div class="stats-box">
+              <div class="stats-icon">
+                <i class="fas fa-motorcycle fa-2x text-white"></i>
+              </div>
+              <h5 class="text-center mb-2">Xe Máy</h5>
+              <p id="count_motorbike" class="fs-2 fw-bold text-center text-danger mb-0">0</p>
             </div>
           </div>
         </div>
 
-        <div class="text-center mb-5">
-          <h4>Tổng số phương tiện: <span id="total_vehicles" class="text-primary fw-bold fs-3">0</span></h4>
+        <div class="total-counter mb-5">
+          <h4>Tổng Số Phương Tiện Đã Phát Hiện</h4>
+          <div class="count" id="total_vehicles">0</div>
         </div>
 
-        <!-- Bảng đo vận tốc phương tiện luôn hiển thị -->
-        <div class="mb-3 text-center">
-          <h3>Bảng đo vận tốc phương tiện</h3>
+        <!-- Bảng đo vận tốc phương tiện -->
+        <div class="mb-5">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold">
+              <i class="fas fa-tachometer-alt text-primary me-2"></i>
+              Bảng Đo Vận Tốc Phương Tiện
+            </h3>
+            <p class="text-muted">Dữ liệu cập nhật theo thời gian thực</p>
+          </div>
+          <div class="table-modern">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Loại Phương Tiện</th>
+                  <th>Tốc Độ (km/h)</th>
+                </tr>
+              </thead>
+              <tbody id="vehicle-table-body">
+                <tr>
+                  <td colspan="3" class="text-center text-muted py-5">
+                    <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                    Chưa có dữ liệu tốc độ phương tiện
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="table-responsive shadow rounded" id="vehicle-table-container">
-          <table class="table table-bordered table-striped align-middle mb-0">
-            <thead class="table-dark">
-              <tr>
-                <th>#</th>
-                <th>Loại phương tiện</th>
-                <th>Tốc độ (km/h)</th>
-              </tr>
-            </thead>
-            <tbody id="vehicle-table-body">
-              <tr>
-                <td colspan="3" class="text-center text-muted">Chưa có dữ liệu tốc độ phương tiện</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
       </div>
     </div>
 
@@ -168,17 +323,33 @@
       <div class="container py-5">
         <div class="row g-5">
           <div class="col-md-6 col-lg-4">
-            <h5 class="text-white mb-4">Liên hệ</h5>
-            <p><i class="fa fa-map-marker-alt me-3"></i>123 Đường ABC, Hà Nội</p>
+            <h5 class="text-white mb-4">Liên Hệ</h5>
+            <p><i class="fa fa-map-marker-alt me-3"></i>TP. Hồ Chí Minh, Việt Nam</p>
             <p><i class="fa fa-phone-alt me-3"></i>+84 912 345 678</p>
-            <p><i class="fa fa-envelope me-3"></i>info@giaothong.vn</p>
+            <p><i class="fa fa-envelope me-3"></i>info@trafficvision.vn</p>
           </div>
           <div class="col-md-6 col-lg-4">
-            <h5 class="text-white mb-4">Kết nối</h5>
+            <h5 class="text-white mb-4">Liên Kết Nhanh</h5>
+            <a class="btn btn-link text-white-50" href="index.html">Trang chủ</a>
+            <a class="btn btn-link text-white-50" href="job-list.html">Đo Tốc Độ</a>
+            <a class="btn btn-link text-white-50" href="category.html">Báo Cáo</a>
+            <a class="btn btn-link text-white-50" href="contact.html">Thống Kê</a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <h5 class="text-white mb-4">Kết Nối</h5>
             <div class="d-flex pt-2">
               <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
               <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
               <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-12 text-center py-3">
+              &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
             </div>
           </div>
         </div>
@@ -200,12 +371,13 @@
   <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
 
-  <!-- Custom Vehicle Detection & Speed Script -->
+  <!-- Custom Vehicle Detection Script -->
   <script>
     document.getElementById('btn-detect').addEventListener('click', () => {
       const btn = document.getElementById('btn-detect');
       btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang giám sát...';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang Giám Sát...';
+      btn.classList.add('pulse-animation');
 
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -222,7 +394,7 @@
         return response.json();
       })
       .then(data => {
-        // Cập nhật số lượng từng loại xe
+        // Cập nhật số lượng từng loại xe với hiệu ứng
         document.getElementById('count_car').innerText = data.counts?.car || 0;
         document.getElementById('count_truck').innerText = data.counts?.truck || 0;
         document.getElementById('count_bus').innerText = data.counts?.bus || 0;
@@ -239,10 +411,10 @@
           data.vehicles.forEach((vehicle, idx) => {
             const speed = vehicle.speed !== undefined ? vehicle.speed.toFixed(1) : '-';
             const row = `
-              <tr>
+              <tr style="animation: fadeIn 0.5s ease-in ${idx * 0.1}s both;">
                 <td>${idx + 1}</td>
-                <td>${vehicle.type}</td>
-                <td>${speed} km/h</td>
+                <td><i class="fas fa-${getVehicleIcon(vehicle.type)} me-2 text-primary"></i>${vehicle.type}</td>
+                <td><span class="badge bg-info">${speed} km/h</span></td>
               </tr>
             `;
             vehicleTableBody.insertAdjacentHTML('beforeend', row);
@@ -250,20 +422,50 @@
         } else {
           vehicleTableBody.innerHTML = `
             <tr>
-              <td colspan="3" class="text-center text-muted">Chưa có dữ liệu tốc độ phương tiện</td>
+              <td colspan="3" class="text-center text-muted py-5">
+                <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                Chưa có dữ liệu tốc độ phương tiện
+              </td>
             </tr>
           `;
         }
 
-        btn.innerHTML = '<i class="fas fa-check-circle"></i> Giám sát hoàn tất';
+        btn.disabled = false;
+        btn.classList.remove('pulse-animation');
+        btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Giám Sát Hoàn Tất';
+        
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát';
+        }, 3000);
       })
       .catch(error => {
         alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
         console.error(error);
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-search"></i> Bắt đầu giám sát';
+        btn.classList.remove('pulse-animation');
+        btn.innerHTML = '<i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát';
       });
     });
+
+    function getVehicleIcon(type) {
+      const icons = {
+        'car': 'car',
+        'truck': 'truck',
+        'bus': 'bus',
+        'motorbike': 'motorcycle'
+      };
+      return icons[type.toLowerCase()] || 'car';
+    }
+
+    // Animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>

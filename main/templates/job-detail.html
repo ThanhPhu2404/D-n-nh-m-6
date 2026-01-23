@@ -1,242 +1,509 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
+<head>
     <meta charset="utf-8" />
-    <title>Bản đồ Camera Giao Thông - Vehicle Monitoring</title>
+    <title>Bản Đồ Camera Giao Thông - Hệ Thống Giám Sát</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
     <!-- CSS Libraries -->
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
-    <link
-      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
-      rel="stylesheet"
-    />
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    <link
-      rel="icon"
-      href="{% static 'img/favicon.ico' %}"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
 
     <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <style>
-      body {
-        font-family: "Heebo", sans-serif;
-      }
-      #map {
-        height: 600px;
-        width: 100%;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        margin-bottom: 40px;
-      }
-      .page-header {
-        background: linear-gradient(
-            rgba(43, 57, 64, 0.5),
-            rgba(43, 57, 64, 0.5)
-          ),
-          url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
-        background-size: cover;
-      }
-      .footer {
-        background-color: #222;
-      }
+        :root {
+            --map-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .map-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%),
+                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+            background-size: cover;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.3)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            margin-bottom: 50px;
+        }
+
+        #map {
+            height: 650px;
+            width: 100%;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .control-btn {
+            background: var(--map-gradient);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--info-gradient);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .info-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--map-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 10px 0;
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .legend-box {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .legend-item:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .legend-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--map-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .legend-text {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .custom-marker {
+            background: var(--map-gradient);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            animation: pulse-marker 2s infinite;
+        }
+
+        @keyframes pulse-marker {
+            0%, 100% { 
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaflet-popup-content {
+            margin: 15px;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .popup-title {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .popup-status {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.2) 0%, rgba(168, 224, 99, 0.2) 100%);
+            color: #56ab2f;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="container-xxl bg-white p-0">
-      <!-- Navbar Start -->
-      <nav
-        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
-      >
-        <a
-          href="index.html"
-          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
-        >
-          <h1 class="m-0 text-primary">JobEntry</h1>
-        </a>
-        <button
-          type="button"
-          class="navbar-toggler me-4"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-            <a href="about.html" class="nav-item nav-link"
-              >Giám sát trực tuyến </a
-            >
-            <div class="nav-item dropdown">
-                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
-              </div>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Trang chủ</a>
+                    <a href="about.html" class="nav-item nav-link">Giám sát trực tuyến</a>
+                    <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+                    <a href="category.html" class="nav-item nav-link">Báo Cáo</a>
+                    <a href="contact.html" class="nav-item nav-link">Thống kê giao thông</a>
+                    <a href="job-detail.html" class="nav-item nav-link active">Bản Đồ Camera</a>
+                </div>
             </div>
-            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
-            <a href="contact.html" class="nav-item nav-link"
-              >Thống kê giao thông</a
-            >
-          </div>
-          <a
-            href="job-detail.html"
-            class="nav-item nav-link"
-            >Vi Trí Camera Trên Bản Đồ
-          </a>
+        </nav>
+
+        <!-- Header -->
+        <div class="map-header">
+            <div class="container my-5 pt-5 pb-4 position-relative" style="z-index: 1;">
+                <h1 class="display-3 text-white mb-3 animated slideInDown fw-bold">
+                    <i class="fas fa-map-marked-alt me-3"></i>Bản Đồ Camera Giao Thông
+                </h1>
+                <p class="text-white fs-5 mb-0">Hiển thị vị trí các camera giám sát giao thông trong thành phố</p>
+            </div>
         </div>
-      </nav>
-      <!-- Navbar End -->
 
-      <!-- Header -->
-      <div class="container-xxl py-5 page-header mb-5">
-        <div class="container my-5 pt-5 pb-4">
-          <h1 class="display-3 text-white mb-3 animated slideInDown">
-            Bản đồ Camera Giao Thông
-          </h1>
-          <p class="text-white">
-            Hiển thị vị trí các camera giám sát giao thông trong thành phố
-          </p>
-        </div>
-      </div>
-
-      <!-- Map container -->
-      <div class="container">
-        <div id="map"></div>
-      </div>
-
-      <!-- Footer -->
-      <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+        <!-- Map Section -->
         <div class="container py-5">
-          <div class="row g-5">
-            <div class="col-lg-4">
-              <h5 class="text-white mb-4">Liên hệ</h5>
-              <p>
-                <i class="fa fa-map-marker-alt me-3"></i>Hồ Chí Minh, Việt Nam
-              </p>
-              <p>
-                <i class="fa fa-envelope me-3"></i>support@vehiclemonitor.vn
-              </p>
-              <p><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
+            <!-- Stats -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 col-md-6 animate-in">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-camera fa-2x text-white"></i>
+                        </div>
+                        <div class="text-center">
+                            <div class="info-value">50+</div>
+                            <div class="info-label">Camera Hoạt Động</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 animate-in" style="animation-delay: 0.1s;">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt fa-2x text-white"></i>
+                        </div>
+                        <div class="text-center">
+                            <div class="info-value">15</div>
+                            <div class="info-label">Khu Vực Giám Sát</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 animate-in" style="animation-delay: 0.2s;">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-check-circle fa-2x text-white"></i>
+                        </div>
+                        <div class="text-center">
+                            <div class="info-value">100%</div>
+                            <div class="info-label">Độ Phủ Sóng</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4">
-              <h5 class="text-white mb-4">Kết nối</h5>
-              <div class="d-flex pt-2">
-                <a class="btn btn-outline-light btn-social me-2" href="#"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social me-2" href="#"
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href="#"
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-              </div>
+
+            <!-- Map -->
+            <div class="map-container animate-in" style="animation-delay: 0.3s;">
+                <div id="map"></div>
             </div>
-          </div>
+
+            <!-- Legend -->
+            <div class="legend-box animate-in" style="animation-delay: 0.4s;">
+                <h4 class="fw-bold mb-4">
+                    <i class="fas fa-info-circle text-primary me-2"></i>Chú Thích Bản Đồ
+                </h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="legend-item">
+                            <div class="legend-marker">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="legend-text">Camera giám sát giao thông</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-marker">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="legend-text">Trạng thái hoạt động bình thường</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="legend-item">
+                            <div class="legend-marker">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <div class="legend-text">Vùng phủ sóng camera</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-marker">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="legend-text">Click vào marker để xem thông tin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Footer -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-4"><i class="bi bi-camera-video me-2"></i>TrafficVision</h5>
+                        <p>Hệ thống giám sát giao thông thông minh sử dụng AI và công nghệ camera hiện đại.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-4">Liên Hệ</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>TP. Hồ Chí Minh, Việt Nam</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@trafficvision.vn</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-4">Liên Kết Nhanh</h5>
+                        <a class="btn btn-link text-white-50" href="about.html">Giám Sát Trực Tuyến</a>
+                        <a class="btn btn-link text-white-50" href="job-list.html">Đo Tốc Độ</a>
+                        <a class="btn btn-link text-white-50" href="category.html">Báo Cáo</a>
+                        <a class="btn btn-link text-white-50" href="contact.html">Thống Kê</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-12 text-center py-3">
+                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Script Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-      // Khởi tạo bản đồ tại trung tâm HCM
-      const map = L.map("map").setView([10.77653, 106.700981], 12);
+        // Initialize map
+        const map = L.map("map").setView([10.77653, 106.700981], 12);
 
-      // Thêm tile layer từ OpenStreetMap
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(map);
+        // Add tile layer
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
 
-      // Dữ liệu 50 camera mẫu trong TP. HCM
-      const cameras = [
-        { name: "Camera 1 - Q1", lat: 10.775, lng: 106.7 },
-        { name: "Camera 2 - Q1", lat: 10.77, lng: 106.705 },
-        { name: "Camera 3 - Q1", lat: 10.78, lng: 106.695 },
-        { name: "Camera 4 - Q3", lat: 10.779, lng: 106.6917 },
-        { name: "Camera 5 - Q3", lat: 10.781, lng: 106.689 },
-        { name: "Camera 6 - Q3", lat: 10.7825, lng: 106.6875 },
-        { name: "Camera 7 - Q5", lat: 10.759, lng: 106.68 },
-        { name: "Camera 8 - Q5", lat: 10.7605, lng: 106.6785 },
-        { name: "Camera 9 - Q5", lat: 10.758, lng: 106.679 },
-        { name: "Camera 10 - Q10", lat: 10.772, lng: 106.66 },
-        { name: "Camera 11 - Q10", lat: 10.7735, lng: 106.6585 },
-        { name: "Camera 12 - Q10", lat: 10.77, lng: 106.662 },
-        { name: "Camera 13 - Bình Thạnh", lat: 10.801, lng: 106.703 },
-        { name: "Camera 14 - Bình Thạnh", lat: 10.803, lng: 106.705 },
-        { name: "Camera 15 - Bình Thạnh", lat: 10.805, lng: 106.707 },
-        { name: "Camera 16 - Phú Nhuận", lat: 10.7925, lng: 106.679 },
-        { name: "Camera 17 - Phú Nhuận", lat: 10.79, lng: 106.681 },
-        { name: "Camera 18 - Phú Nhuận", lat: 10.788, lng: 106.6835 },
-        { name: "Camera 19 - Tân Bình", lat: 10.7895, lng: 106.65 },
-        { name: "Camera 20 - Tân Bình", lat: 10.787, lng: 106.652 },
-        { name: "Camera 21 - Tân Bình", lat: 10.785, lng: 106.655 },
-        { name: "Camera 22 - Q7", lat: 10.737, lng: 106.71 },
-        { name: "Camera 23 - Q7", lat: 10.735, lng: 106.7125 },
-        { name: "Camera 24 - Q7", lat: 10.734, lng: 106.714 },
-        { name: "Camera 25 - Thủ Đức", lat: 10.85, lng: 106.7625 },
-        { name: "Camera 26 - Thủ Đức", lat: 10.855, lng: 106.76 },
-        { name: "Camera 27 - Thủ Đức", lat: 10.8525, lng: 106.755 },
-        { name: "Camera 28 - Gò Vấp", lat: 10.835, lng: 106.695 },
-        { name: "Camera 29 - Gò Vấp", lat: 10.838, lng: 106.6925 },
-        { name: "Camera 30 - Gò Vấp", lat: 10.84, lng: 106.69 },
-        { name: "Camera 31 - Tân Phú", lat: 10.7775, lng: 106.646 },
-        { name: "Camera 32 - Tân Phú", lat: 10.78, lng: 106.645 },
-        { name: "Camera 33 - Tân Phú", lat: 10.782, lng: 106.6425 },
-        { name: "Camera 34 - Quận 4", lat: 10.756, lng: 106.707 },
-        { name: "Camera 35 - Quận 4", lat: 10.754, lng: 106.705 },
-        { name: "Camera 36 - Quận 4", lat: 10.7525, lng: 106.703 },
-        { name: "Camera 37 - Quận 8", lat: 10.7375, lng: 106.647 },
-        { name: "Camera 38 - Quận 8", lat: 10.735, lng: 106.649 },
-        { name: "Camera 39 - Quận 8", lat: 10.7325, lng: 106.65 },
-        { name: "Camera 40 - Q3", lat: 10.779, lng: 106.685 },
-        { name: "Camera 41 - Q3", lat: 10.78, lng: 106.683 },
-        { name: "Camera 42 - Q1", lat: 10.77, lng: 106.7 },
-        { name: "Camera 43 - Q1", lat: 10.771, lng: 106.702 },
-        { name: "Camera 44 - Bình Chánh", lat: 10.8, lng: 106.6 },
-        { name: "Camera 45 - Bình Chánh", lat: 10.795, lng: 106.605 },
-        { name: "Camera 46 - Nhà Bè", lat: 10.735, lng: 106.68 },
-        { name: "Camera 47 - Nhà Bè", lat: 10.731, lng: 106.678 },
-        { name: "Camera 48 - Q12", lat: 10.847, lng: 106.63 },
-        { name: "Camera 49 - Q12", lat: 10.845, lng: 106.632 },
-        { name: "Camera 50 - Q12", lat: 10.849, lng: 106.634 },
-      ];
+        // Custom marker icon
+        const customIcon = L.divIcon({
+            className: 'custom-marker',
+            html: '<i class="fas fa-video" style="color: white; font-size: 14px;"></i>',
+            iconSize: [35, 35],
+            iconAnchor: [17, 17],
+            popupAnchor: [0, -17]
+        });
 
-      cameras.forEach((cam) => {
-        L.marker([cam.lat, cam.lng]).addTo(map).bindPopup(`<b>${cam.name}</b>`);
-      });
+        // Camera data
+        const cameras = [
+            { name: "Camera 1 - Quận 1", lat: 10.775, lng: 106.7, area: "Quận 1" },
+            { name: "Camera 2 - Quận 1", lat: 10.77, lng: 106.705, area: "Quận 1" },
+            { name: "Camera 3 - Quận 1", lat: 10.78, lng: 106.695, area: "Quận 1" },
+            { name: "Camera 4 - Quận 3", lat: 10.779, lng: 106.6917, area: "Quận 3" },
+            { name: "Camera 5 - Quận 3", lat: 10.781, lng: 106.689, area: "Quận 3" },
+            { name: "Camera 6 - Quận 3", lat: 10.7825, lng: 106.6875, area: "Quận 3" },
+            { name: "Camera 7 - Quận 5", lat: 10.759, lng: 106.68, area: "Quận 5" },
+            { name: "Camera 8 - Quận 5", lat: 10.7605, lng: 106.6785, area: "Quận 5" },
+            { name: "Camera 9 - Quận 5", lat: 10.758, lng: 106.679, area: "Quận 5" },
+            { name: "Camera 10 - Quận 10", lat: 10.772, lng: 106.66, area: "Quận 10" },
+            { name: "Camera 11 - Quận 10", lat: 10.7735, lng: 106.6585, area: "Quận 10" },
+            { name: "Camera 12 - Quận 10", lat: 10.77, lng: 106.662, area: "Quận 10" },
+            { name: "Camera 13 - Bình Thạnh", lat: 10.801, lng: 106.703, area: "Bình Thạnh" },
+            { name: "Camera 14 - Bình Thạnh", lat: 10.803, lng: 106.705, area: "Bình Thạnh" },
+            { name: "Camera 15 - Bình Thạnh", lat: 10.805, lng: 106.707, area: "Bình Thạnh" },
+            { name: "Camera 16 - Phú Nhuận", lat: 10.7925, lng: 106.679, area: "Phú Nhuận" },
+            { name: "Camera 17 - Phú Nhuận", lat: 10.79, lng: 106.681, area: "Phú Nhuận" },
+            { name: "Camera 18 - Phú Nhuận", lat: 10.788, lng: 106.6835, area: "Phú Nhuận" },
+            { name: "Camera 19 - Tân Bình", lat: 10.7895, lng: 106.65, area: "Tân Bình" },
+            { name: "Camera 20 - Tân Bình", lat: 10.787, lng: 106.652, area: "Tân Bình" },
+            { name: "Camera 21 - Tân Bình", lat: 10.785, lng: 106.655, area: "Tân Bình" },
+            { name: "Camera 22 - Quận 7", lat: 10.737, lng: 106.71, area: "Quận 7" },
+            { name: "Camera 23 - Quận 7", lat: 10.735, lng: 106.7125, area: "Quận 7" },
+            { name: "Camera 24 - Quận 7", lat: 10.734, lng: 106.714, area: "Quận 7" },
+            { name: "Camera 25 - Thủ Đức", lat: 10.85, lng: 106.7625, area: "Thủ Đức" },
+            { name: "Camera 26 - Thủ Đức", lat: 10.855, lng: 106.76, area: "Thủ Đức" },
+            { name: "Camera 27 - Thủ Đức", lat: 10.8525, lng: 106.755, area: "Thủ Đức" },
+            { name: "Camera 28 - Gò Vấp", lat: 10.835, lng: 106.695, area: "Gò Vấp" },
+            { name: "Camera 29 - Gò Vấp", lat: 10.838, lng: 106.6925, area: "Gò Vấp" },
+            { name: "Camera 30 - Gò Vấp", lat: 10.84, lng: 106.69, area: "Gò Vấp" },
+            { name: "Camera 31 - Tân Phú", lat: 10.7775, lng: 106.646, area: "Tân Phú" },
+            { name: "Camera 32 - Tân Phú", lat: 10.78, lng: 106.645, area: "Tân Phú" },
+            { name: "Camera 33 - Tân Phú", lat: 10.782, lng: 106.6425, area: "Tân Phú" },
+            { name: "Camera 34 - Quận 4", lat: 10.756, lng: 106.707, area: "Quận 4" },
+            { name: "Camera 35 - Quận 4", lat: 10.754, lng: 106.705, area: "Quận 4" },
+            { name: "Camera 36 - Quận 4", lat: 10.7525, lng: 106.703, area: "Quận 4" },
+            { name: "Camera 37 - Quận 8", lat: 10.7375, lng: 106.647, area: "Quận 8" },
+            { name: "Camera 38 - Quận 8", lat: 10.735, lng: 106.649, area: "Quận 8" },
+            { name: "Camera 39 - Quận 8", lat: 10.7325, lng: 106.65, area: "Quận 8" },
+            { name: "Camera 40 - Quận 3", lat: 10.779, lng: 106.685, area: "Quận 3" },
+            { name: "Camera 41 - Quận 3", lat: 10.78, lng: 106.683, area: "Quận 3" },
+            { name: "Camera 42 - Quận 1", lat: 10.77, lng: 106.7, area: "Quận 1" },
+            { name: "Camera 43 - Quận 1", lat: 10.771, lng: 106.702, area: "Quận 1" },
+            { name: "Camera 44 - Bình Chánh", lat: 10.8, lng: 106.6, area: "Bình Chánh" },
+            { name: "Camera 45 - Bình Chánh", lat: 10.795, lng: 106.605, area: "Bình Chánh" },
+            { name: "Camera 46 - Nhà Bè", lat: 10.735, lng: 106.68, area: "Nhà Bè" },
+            { name: "Camera 47 - Nhà Bè", lat: 10.731, lng: 106.678, area: "Nhà Bè" },
+            { name: "Camera 48 - Quận 12", lat: 10.847, lng: 106.63, area: "Quận 12" },
+            { name: "Camera 49 - Quận 12", lat: 10.845, lng: 106.632, area: "Quận 12" },
+            { name: "Camera 50 - Quận 12", lat: 10.849, lng: 106.634, area: "Quận 12" }
+        ];
+
+        // Add markers to map
+        cameras.forEach((cam, index) => {
+            const marker = L.marker([cam.lat, cam.lng], { icon: customIcon })
+                .addTo(map)
+                .bindPopup(`
+                    <div style="min-width: 200px;">
+                        <div class="popup-title">${cam.name}</div>
+                        <p style="margin: 5px 0; color: #666;">
+                            <i class="fas fa-map-marker-alt" style="color: #667eea; margin-right: 5px;"></i>
+                            ${cam.area}
+                        </p>
+                        <span class="popup-status">
+                            <i class="fas fa-check-circle" style="margin-right: 5px;"></i>Hoạt động
+                        </span>
+                    </div>
+                `);
+
+            // Add hover effect
+            marker.on('mouseover', function() {
+                this.openPopup();
+            });
+        });
+
+        // Initialize WOW.js
+        new WOW().init();
     </script>
-  </body>
+</body>
 </html>

@@ -1,10 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="utf-8">
-    <title>Báo Cáo Phương Tiện - Vehicle Monitoring</title>
+    <title>Báo Cáo Phương Tiện - Hệ Thống Giám Sát Giao Thông</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="{% static 'img/favicon.ico' %}" rel="icon">
 
@@ -19,148 +18,372 @@
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        :root {
+            --gradient-ocean: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-forest: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            --gradient-sunset: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .page-header-report {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%),
+                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+            background-size: cover;
+            padding: 100px 0 60px;
+            position: relative;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .filter-card .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .filter-card .form-control,
+        .filter-card .form-select {
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-card .form-control:focus,
+        .filter-card .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-filter {
+            background: var(--gradient-ocean);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-filter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-ocean);
+        }
+
+        .stat-card.success::before {
+            background: var(--gradient-forest);
+        }
+
+        .stat-card.warning::before {
+            background: var(--gradient-sunset);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+
+        .stat-card.primary .stat-icon {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            color: #667eea;
+        }
+
+        .stat-card.success .stat-icon {
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.1) 0%, rgba(168, 224, 99, 0.1) 100%);
+            color: #56ab2f;
+        }
+
+        .stat-card.warning .stat-icon {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+            color: #f5576c;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .chart-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .chart-header h3 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .chart-header p {
+            color: #999;
+            margin: 0;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            margin-right: 8px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
-
-<!-- Navbar Start -->
-      <nav
-        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
-      >
-        <a
-          href="index.html"
-          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
-        >
-          <h1 class="m-0 text-primary">JobEntry</h1>
-        </a>
-        <button
-          type="button"
-          class="navbar-toggler me-4"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-            <a href="about.html" class="nav-item nav-link"
-              >Giám sát trực tuyến </a
-            >
-            <div class="nav-item dropdown">
-                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
-              </div>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Trang chủ</a>
+                    <a href="about.html" class="nav-item nav-link">Giám sát trực tuyến</a>
+                    <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+                    <a href="category.html" class="nav-item nav-link active">Báo Cáo</a>
+                    <a href="contact.html" class="nav-item nav-link">Thống kê giao thông</a>
+                </div>
+                <a href="job-detail.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
+                    Bản Đồ Camera<i class="fa fa-arrow-right ms-3"></i>
+                </a>
             </div>
-            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
-            <a href="contact.html" class="nav-item nav-link"
-              >Thống kê giao thông</a
-            >
-          </div>
-          <a
-            href=""
-            class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"
-            >Post A Job<i class="fa fa-arrow-right ms-3"></i
-          ></a>
-        </div>
-      </nav>
-      <!-- Navbar End -->
+        </nav>
 
-
-        <!-- Header Start -->
-        <div class="container-xxl py-5 page-header mb-5"
-            style="background: linear-gradient(rgba(43, 57, 64, 0.5), rgba(43, 57, 64, 0.5)), 
-            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat; background-size: cover;">
+        <!-- Header -->
+        <div class="page-header-report">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Báo cáo</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown fw-bold">
+                    <i class="fas fa-chart-line me-3"></i>Báo Cáo Giao Thông
+                </h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Trang chủ</a></li>
                         <li class="breadcrumb-item text-white active" aria-current="page">Báo cáo</li>
                     </ol>
                 </nav>
             </div>
         </div>
-        <!-- Header End -->
 
-
-        <!-- Report Start -->
+        <!-- Report Section -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h2 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Thống kê giám sát giao thông</h2>
+                <div class="text-center mb-5 animate-fade-in">
+                    <h2 class="display-6 fw-bold mb-3">Thống Kê Giám Sát Giao Thông</h2>
+                    <p class="text-muted fs-5">Phân tích dữ liệu chi tiết theo thời gian và khu vực</p>
+                </div>
 
                 <!-- Bộ lọc -->
-                <form class="row g-3 mb-4">
-                    <div class="col-md-3">
-                        <label>Từ ngày:</label>
-                        <input type="date" class="form-control" name="start_date">
-                    </div>
-                    <div class="col-md-3">
-                        <label>Đến ngày:</label>
-                        <input type="date" class="form-control" name="end_date">
-                    </div>
-                    <div class="col-md-3">
-                        <label>Khu vực:</label>
-                        <select class="form-select" name="location">
-                            <option>Tất cả</option>
-                            <option>Camera 1</option>
-                            <option>Camera 2</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100">Lọc dữ liệu</button>
+                <form class="filter-card animate-fade-in" method="GET" action="" style="animation-delay: 0.1s;">
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <label for="start_date" class="form-label">
+                                <i class="fas fa-calendar-alt me-2 text-primary"></i>Từ ngày:
+                            </label>
+                            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="end_date" class="form-label">
+                                <i class="fas fa-calendar-check me-2 text-primary"></i>Đến ngày:
+                            </label>
+                            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="location" class="form-label">
+                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>Khu vực:
+                            </label>
+                            <select class="form-select" id="location" name="location">
+                                <option value="" {% if not request.GET.location %}selected{% endif %}>Tất cả</option>
+                                <option value="Camera 1" {% if request.GET.location == "Camera 1" %}selected{% endif %}>Camera 1</option>
+                                <option value="Camera 2" {% if request.GET.location == "Camera 2" %}selected{% endif %}>Camera 2</option>
+                                <option value="Camera 3">Camera 3</option>
+                                <option value="Camera 4">Camera 4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-filter w-100">
+                                <i class="fas fa-filter me-2"></i>Lọc Dữ Liệu
+                            </button>
+                        </div>
                     </div>
                 </form>
 
-                <!-- Kết quả -->
+                <!-- Kết quả thống kê -->
                 <div class="row g-4 mb-5">
-                    <div class="col-md-4">
-                        <div class="bg-light rounded text-center p-4">
-                            <h5>Số lượng phương tiện</h5>
-                            <h2>12,435</h2>
+                    <div class="col-lg-4 col-md-6 animate-fade-in" style="animation-delay: 0.2s;">
+                        <div class="stat-card primary">
+                            <div class="stat-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-value text-primary">12,435</div>
+                                <div class="stat-label">Số Lượng Phương Tiện</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="bg-light rounded text-center p-4">
-                            <h5>Vận tốc trung bình</h5>
-                            <h2>43.7 km/h</h2>
+                    <div class="col-lg-4 col-md-6 animate-fade-in" style="animation-delay: 0.3s;">
+                        <div class="stat-card success">
+                            <div class="stat-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-value" style="color: #56ab2f;">43.7 km/h</div>
+                                <div class="stat-label">Vận Tốc Trung Bình</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="bg-light rounded text-center p-4">
-                            <h5>Thời điểm cao điểm</h5>
-                            <h2>07:00 - 08:30</h2>
+                    <div class="col-lg-4 col-md-6 animate-fade-in" style="animation-delay: 0.4s;">
+                        <div class="stat-card warning">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-value" style="color: #f5576c; font-size: 2rem;">07:00 - 08:30</div>
+                                <div class="stat-label">Thời Điểm Cao Điểm</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Placeholder Biểu đồ -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <canvas id="trafficChart" style="height: 300px;"></canvas>
+                <!-- Biểu đồ -->
+                <div class="chart-container animate-fade-in" style="animation-delay: 0.5s;">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar text-primary me-2"></i>Phân Tích Lưu Lượng Theo Giờ</h3>
+                        <p>Dữ liệu được thu thập trong 24 giờ gần nhất</p>
+                    </div>
+                    <div class="mb-4">
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: linear-gradient(135deg, #667eea, #764ba2);"></span>
+                            Số lượng phương tiện
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: linear-gradient(135deg, #56ab2f, #a8e063);"></span>
+                            Tốc độ trung bình
+                        </span>
+                    </div>
+                    <canvas id="trafficChart" style="max-height: 400px;"></canvas>
+                </div>
+
+                <!-- Thống kê bổ sung -->
+                <div class="row g-4 mt-4">
+                    <div class="col-md-6 animate-fade-in" style="animation-delay: 0.6s;">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4><i class="fas fa-pie-chart text-primary me-2"></i>Phân Loại Phương Tiện</h4>
+                                <p>Tỷ lệ phần trăm theo loại xe</p>
+                            </div>
+                            <canvas id="vehicleTypeChart" style="max-height: 300px;"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 animate-fade-in" style="animation-delay: 0.7s;">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4><i class="fas fa-map-marked-alt text-primary me-2"></i>Phân Bố Theo Khu Vực</h4>
+                                <p>Top 5 khu vực có lưu lượng cao nhất</p>
+                            </div>
+                            <canvas id="locationChart" style="max-height: 300px;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Report End -->
 
-
-        <!-- Footer Start -->
+        <!-- Footer -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-4">
-                        <h5 class="text-white mb-4">Vehicle Monitor</h5>
+                        <h5 class="text-white mb-4"><i class="bi bi-camera-video me-2"></i>TrafficVision</h5>
                         <p>Hệ thống theo dõi và thống kê phương tiện giao thông theo thời gian thực.</p>
                     </div>
                     <div class="col-lg-4">
-                        <h5 class="text-white mb-4">Liên hệ</h5>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>Hà Nội, Việt Nam</p>
-                        <p><i class="fa fa-envelope me-3"></i>support@vehiclemonitor.vn</p>
+                        <h5 class="text-white mb-4">Liên Hệ</h5>
+                        <p><i class="fa fa-map-marker-alt me-3"></i>TP. Hồ Chí Minh, Việt Nam</p>
+                        <p><i class="fa fa-envelope me-3"></i>support@trafficvision.vn</p>
                         <p><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
                     </div>
                     <div class="col-lg-4">
-                        <h5 class="text-white mb-4">Kết nối</h5>
+                        <h5 class="text-white mb-4">Kết Nối</h5>
                         <div class="d-flex">
                             <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-youtube"></i></a>
@@ -169,45 +392,147 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-12 text-center py-3">
+                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Footer End -->
+    </div>
 
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <!-- JS -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-        <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-        <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <script>
-            // Biểu đồ giả lập - bạn nên load từ API Django
-            const ctx = document.getElementById('trafficChart');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['6:00', '7:00', '8:00', '9:00', '10:00'],
-                    datasets: [{
-                        label: 'Số lượng phương tiện',
-                        data: [120, 320, 210, 180, 90],
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
-                    }]
+    <script>
+        // Traffic Chart
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+                datasets: [{
+                    label: 'Số lượng phương tiện',
+                    data: [120, 320, 450, 280, 210, 180, 240, 190, 260, 310],
+                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { 
+                        display: false
+                    }
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: {
-                            display: true,
-                            text: 'Phương tiện theo giờ'
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
                         }
                     }
                 }
-            });
-        </script>
-    </div>
-</body>
+            }
+        });
 
+        // Vehicle Type Chart
+        const vehicleCtx = document.getElementById('vehicleTypeChart').getContext('2d');
+        const vehicleTypeChart = new Chart(vehicleCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Xe con', 'Xe máy', 'Xe tải', 'Xe buýt'],
+                datasets: [{
+                    data: [45, 35, 15, 5],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(86, 171, 47, 0.8)',
+                        'rgba(245, 87, 108, 0.8)'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 13
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Location Chart
+        const locationCtx = document.getElementById('locationChart').getContext('2d');
+        const locationChart = new Chart(locationCtx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Quận 1', 'Quận 3', 'Bình Thạnh', 'Phú Nhuận', 'Tân Bình'],
+                datasets: [{
+                    label: 'Lưu lượng xe',
+                    data: [850, 720, 640, 580, 520],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(86, 171, 47, 0.8)',
+                        'rgba(245, 87, 108, 0.8)',
+                        'rgba(240, 147, 251, 0.8)',
+                        'rgba(168, 224, 99, 0.8)'
+                    ],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        new WOW().init();
+    </script>
+</body>
 </html>

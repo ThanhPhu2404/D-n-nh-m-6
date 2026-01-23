@@ -1,1212 +1,519 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="vi">
+<head>
     <meta charset="utf-8" />
-    <title>JobEntry - Job Portal Website Template</title>
+    <title>Hệ Thống Giám Sát Giao Thông Thông Minh</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
-    <!-- Favicon -->
+    <meta content="Hệ thống giám sát giao thông thông minh, đếm xe, đo tốc độ" name="keywords" />
+    <meta content="Giám sát giao thông thông minh với AI" name="description" />
     <link href="{% static 'img/favicon.ico' %}" rel="icon" />
-
-    <!-- Google Web Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icon Font Stylesheet -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-
-    <!-- Libraries Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Inter:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
-    <link
-      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
-      rel="stylesheet"
-    />
-
-    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-
-    <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-  </head>
+    
+    <style>
+        :root {
+            --primary-color: #00B98E;
+            --secondary-color: #0D6EFD;
+            --dark-color: #1F2937;
+            --light-color: #F3F4F6;
+        }
+        
+        .hero-carousel-item {
+            background-size: cover;
+            background-position: center;
+            min-height: 650px;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(0, 185, 142, 0.85) 0%, rgba(13, 110, 253, 0.85) 100%);
+        }
+        
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 185, 142, 0.2);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 185, 142, 0.3);
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 185, 142, 0.4);
+            color: white;
+        }
+        
+        .about-image-grid {
+            position: relative;
+        }
+        
+        .about-image-grid img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-image-grid img:hover {
+            transform: scale(1.05);
+        }
+        
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+</head>
 
-  <body>
+<body>
     <div class="container-xxl bg-white p-0">
-      <!-- Spinner Start -->
-      <div
-        id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-      >
-        <div
-          class="spinner-border text-primary"
-          style="width: 3rem; height: 3rem"
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-      <!-- Spinner End -->
-
-     <!-- Navbar Start -->
-      <nav
-        class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
-      >
-        <a
-          href="index.html"
-          class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5"
-        >
-          <h1 class="m-0 text-primary">JobEntry</h1>
-        </a>
-        <button
-          type="button"
-          class="navbar-toggler me-4"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-            <a href="about.html" class="nav-item nav-link"
-              >Giám sát trực tuyến </a
-            >
-            <div class="nav-item dropdown">
-                <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
-              </div>
+        <!-- Spinner -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
+                <span class="sr-only">Đang tải...</span>
             </div>
-            <a href="category.html" class="nav-item nav-link">Báo Cáo</a>            
-            <a href="contact.html" class="nav-item nav-link"
-              >Thống kê giao thông</a
-            >
-          </div>
-          <a
-            href="job-detail.html"
-            class="nav-item nav-link"
-            >Vi Trí Camera Trên Bản Đồ
-          </a>
         </div>
-      </nav>
-      <!-- Navbar End -->
 
-     <!-- Carousel Start -->
-<div class="container-fluid p-0">
-  <div class="owl-carousel header-carousel position-relative">
-    <div class="owl-carousel-item position-relative">
-      <img
-        class="img-fluid"
-        src="{% static 'img/anhnenmetro.jpg' %}"
-        alt="Giám sát giao thông"
-      />
-      <div
-        class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-        style="background: rgba(43, 57, 64, 0.5)"
-      >
-        <div class="container">
-          <div class="row justify-content-start">
-            <div class="col-10 col-lg-8">
-              <h1 class="display-3 text-white animated slideInDown mb-4">
-                Hệ Thống Giám Sát Giao Thông Thông Minh
-              </h1>
-              <p class="fs-5 fw-medium text-white mb-4 pb-2">
-                Theo dõi số lượng phương tiện và đo vận tốc theo thời gian thực, giúp quản lý giao thông hiệu quả.
-              </p>
-              <a
-                href="category.html"
-                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
-              >
-                Xem Báo Cáo
-              </a>
-              <a
-                href="contact.html"
-                class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"
-              >
-                Thống Kê Giao Thông
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="owl-carousel-item position-relative">
-      <img
-        class="img-fluid"
-        src="{% static 'img/anhnen2.jpg' %}"
-        alt="Đo vận tốc phương tiện"
-      />
-      <div
-        class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-        style="background: rgba(43, 57, 64, 0.5)"
-      >
-        <div class="container">
-          <div class="row justify-content-start">
-            <div class="col-10 col-lg-8">
-              <h1 class="display-3 text-white animated slideInDown mb-4">
-                Đo Vận Tốc & Phân Tích Lưu Lượng Xe
-              </h1>
-              <p class="fs-5 fw-medium text-white mb-4 pb-2">
-                Cung cấp dữ liệu chính xác về tốc độ trung bình và các thời điểm cao điểm giao thông.
-              </p>
-              <a
-                href="job-list.html"
-                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
-              >
-                Đo Tốc Độ Phương Tiện
-              </a>
-              <a
-                href="contact.html"
-                class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"
-              >
-                Xem Thống Kê
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Carousel End -->
-
-      <!-- Search Start -->
-      <div
-        class="container-fluid bg-primary mb-5 wow fadeIn"
-        data-wow-delay="0.1s"
-        style="padding: 35px"
-      >
-        <div class="container">
-          <div class="row g-2">
-            <div class="col-md-10">
-              <div class="row g-2">
-                <div class="col-md-4">
-                  <input
-                    type="text"
-                    class="form-control border-0"
-                    placeholder="Keyword"
-                  />
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
+                    <a href="about.html" class="nav-item nav-link">Giám sát trực tuyến</a>
+                    <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+                    <a href="category.html" class="nav-item nav-link">Báo Cáo</a>
+                    <a href="contact.html" class="nav-item nav-link">Thống kê giao thông</a>
                 </div>
-                <div class="col-md-4">
-                  <select class="form-select border-0">
-                    <option selected>Category</option>
-                    <option value="1">Category 1</option>
-                    <option value="2">Category 2</option>
-                    <option value="3">Category 3</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <select class="form-select border-0">
-                    <option selected>Location</option>
-                    <option value="1">Location 1</option>
-                    <option value="2">Location 2</option>
-                    <option value="3">Location 3</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-dark border-0 w-100">Search</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Search End -->
-
-      <!-- Category Start -->
-<div class="container-xxl py-5">
-  <div class="container">
-    <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-      Tính năng hệ thống giám sát giao thông
-    </h1>
-    <div class="row g-4">
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-        <a class="cat-item rounded p-4" href="about.html">
-          <i class="fa fa-3x fa-car text-primary mb-4"></i>
-          <h6 class="mb-3">Đếm phương tiện</h6>
-          <p class="mb-0">Theo thời gian thực</p>
-        </a>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-        <a class="cat-item rounded p-4" href="job-list.html">
-          <i class="fa fa-3x fa-tachometer-alt text-primary mb-4"></i>
-          <h6 class="mb-3">Đo vận tốc</h6>
-          <p class="mb-0">Tính toán chính xác tốc độ</p>
-        </a>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-        <a class="cat-item rounded p-4" href="category.html">
-          <i class="fa fa-3x fa-chart-bar text-primary mb-4"></i>
-          <h6 class="mb-3">Phân tích lưu lượng</h6>
-          <p class="mb-0">Theo khung giờ, khu vực</p>
-        </a>
-      </div>
-
-
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-        <a class="cat-item rounded p-4" href="job-detail.html">
-          <i class="fa fa-3x fa-map-marked-alt text-primary mb-4"></i>
-          <h6 class="mb-3">Bản đồ giao thông</h6>
-          <p class="mb-0">Hiển thị vị trí các camera</p>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Category End -->
-
-      <!-- About Start -->
-<div class="container-xxl py-5">
-  <div class="container">
-    <div class="row g-5 align-items-center">
-      <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-        <div class="row g-0 about-bg rounded overflow-hidden">
-          <div class="col-6 text-start">
-            <img class="img-fluid w-100" src="{% static 'img/hình1.jpg' %}" style="width: 100%; margin-top: 15%"/>
-          </div>
-          <div class="col-6 text-start">
-            <img class="img-fluid" src="{% static 'img/hinhanh2.jpg' %}" style="width: 85%; margin-top: 15%" />
-          </div>
-          <div class="col-6 text-end">
-            <img class="img-fluid" src="{% static 'img/hinhanh3.jpg' %}" style="width: 85%" />
-          </div>
-          <div class="col-6 text-end">
-            <img class="img-fluid w-100" src="{% static 'img/hinhanh4.jpg' %}" />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-        <h1 class="mb-4">Giải pháp giám sát giao thông thông minh</h1>
-        <p class="mb-4">
-          Hệ thống giám sát giao thông của chúng tôi sử dụng công nghệ camera hiện đại kết hợp với bản đồ số để giúp quản lý, theo dõi và phân tích tình hình giao thông tại các khu vực trọng điểm trong thành phố Hồ Chí Minh.
-        </p>
-        <p>
-          <i class="fa fa-check text-primary me-3"></i>Hiển thị trực quan vị trí camera trên bản đồ
-        </p>
-        <p>
-          <i class="fa fa-check text-primary me-3"></i>Phân tích dữ liệu lưu lượng phương tiện theo thời gian thực
-        </p>
-        <p>
-          <i class="fa fa-check text-primary me-3"></i>Hỗ trợ cơ quan chức năng quản lý giao thông hiệu quả
-        </p>
-        <a class="btn btn-primary py-3 px-5 mt-3" href="job-detail.html">Xem bản đồ</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- About End -->
-
-
-      <!-- Jobs Start -->
-      <div class="container-xxl py-5">
-        <div class="container">
-          <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            Job Listing
-          </h1>
-          <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-            <ul
-              class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5"
-            >
-              <li class="nav-item">
-                <a
-                  class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active"
-                  data-bs-toggle="pill"
-                  href="#tab-1"
-                >
-                  <h6 class="mt-n1 mb-0">Featured</h6>
+                <a href="job-detail.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
+                    Vị Trí Camera<i class="fa fa-arrow-right ms-3"></i>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="d-flex align-items-center text-start mx-3 pb-3"
-                  data-bs-toggle="pill"
-                  href="#tab-2"
-                >
-                  <h6 class="mt-n1 mb-0">Full Time</h6>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="d-flex align-items-center text-start mx-3 me-0 pb-3"
-                  data-bs-toggle="pill"
-                  href="#tab-3"
-                >
-                  <h6 class="mt-n1 mb-0">Part Time</h6>
-                </a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div id="tab-1" class="tab-pane fade show p-0 active">
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-1.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Software Engineer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        <img
-                        src="{% static 'img/com-logo-2.jpg' %}"
-                        alt=""
-                      />
-                      style="width: 80px; height: 80px" />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Marketing Manager</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        <img
-                        src="{% static 'img/com-logo-3.jpg' %}"
-                        alt=""
-                      />
-                      style="width: 80px; height: 80px" />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Product Designer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static  'img/com-logo-4.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Creative Director</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-5.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Wordpress Developer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <a class="btn btn-primary py-3 px-5" href=""
-                  >Browse More Jobs</a
-                >
-              </div>
-              <div id="tab-2" class="tab-pane fade show p-0">
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-1.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Software Engineer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-2.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Marketing Manager</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{%static 'img/com-logo-3.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Product Designer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        <img
-                        src="{% static 'img/com-logo-4.jpg' %}"
-                        alt=""
-                      />
-                      style="width: 80px; height: 80px" />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Creative Director</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-5.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Wordpress Developer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <a class="btn btn-primary py-3 px-5" href=""
-                  >Browse More Jobs</a
-                >
-              </div>
-              <div id="tab-3" class="tab-pane fade show p-0">
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-1.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Software Engineer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-2.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Marketing Manager</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{% static 'img/com-logo-3.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Product Designer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src="{%static 'img/com-logo-4.jpg' %}"
-                        alt=""
-                        style="width: 80px; height: 80px"
-                      />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Creative Director</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="job-item p-4 mb-4">
-                  <div class="row g-4">
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        <img
-                        src="{% static 'img/com-logo-5.jpg' %}"
-                        alt=""
-                      />
-                      style="width: 80px; height: 80px" />
-                      <div class="text-start ps-4">
-                        <h5 class="mb-3">Wordpress Developer</h5>
-                        <span class="text-truncate me-3"
-                          ><i class="fa fa-map-marker-alt text-primary me-2"></i
-                          >New York, USA</span
-                        >
-                        <span class="text-truncate me-3"
-                          ><i class="far fa-clock text-primary me-2"></i>Full
-                          Time</span
-                        >
-                        <span class="text-truncate me-0"
-                          ><i
-                            class="far fa-money-bill-alt text-primary me-2"
-                          ></i
-                          >$123 - $456</span
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center"
-                    >
-                      <div class="d-flex mb-3">
-                        <a class="btn btn-light btn-square me-3" href=""
-                          ><i class="far fa-heart text-primary"></i
-                        ></a>
-                        <a class="btn btn-primary" href="">Apply Now</a>
-                      </div>
-                      <small class="text-truncate"
-                        ><i class="far fa-calendar-alt text-primary me-2"></i
-                        >Date Line: 01 Jan, 2045</small
-                      >
-                    </div>
-                  </div>
-                </div>
-                <a class="btn btn-primary py-3 px-5" href=""
-                  >Browse More Jobs</a
-                >
-              </div>
             </div>
-          </div>
+        </nav>
+
+        <!-- Carousel -->
+        <div class="container-fluid p-0">
+            <div class="owl-carousel header-carousel position-relative">
+                <div class="owl-carousel-item position-relative hero-carousel-item">
+                    <img class="img-fluid" src="{% static 'img/anhnenmetro.jpg' %}" alt="Giám sát giao thông" />
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center hero-overlay">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-10 col-lg-8">
+                                    <h1 class="display-3 text-white animated slideInDown mb-4 fw-bold">
+                                        Hệ Thống Giám Sát Giao Thông <span class="text-warning">Thông Minh</span>
+                                    </h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">
+                                        Theo dõi số lượng phương tiện và đo vận tốc theo thời gian thực, giúp quản lý giao thông hiệu quả với công nghệ AI tiên tiến.
+                                    </p>
+                                    <a href="category.html" class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
+                                        <i class="fas fa-chart-bar me-2"></i>Xem Báo Cáo
+                                    </a>
+                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight" style="border-radius: 50px;">
+                                        <i class="fas fa-chart-line me-2"></i>Thống Kê Giao Thông
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="owl-carousel-item position-relative hero-carousel-item">
+                    <img class="img-fluid" src="{% static 'img/anhnen2.jpg' %}" alt="Đo vận tốc phương tiện" />
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center hero-overlay">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-10 col-lg-8">
+                                    <h1 class="display-3 text-white animated slideInDown mb-4 fw-bold">
+                                        Đo Vận Tốc & Phân Tích <span class="text-warning">Lưu Lượng Xe</span>
+                                    </h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">
+                                        Cung cấp dữ liệu chính xác về tốc độ trung bình và các thời điểm cao điểm giao thông với độ chính xác cao.
+                                    </p>
+                                    <a href="job-list.html" class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
+                                        <i class="fas fa-tachometer-alt me-2"></i>Đo Tốc Độ Phương Tiện
+                                    </a>
+                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight" style="border-radius: 50px;">
+                                        <i class="fas fa-analytics me-2"></i>Xem Thống Kê
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- Jobs End -->
 
-      <!-- Testimonial Start -->
-      <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-          <h1 class="text-center mb-5">Our Clients Say!!!</h1>
-          <div class="owl-carousel testimonial-carousel">
-            <div class="testimonial-item bg-light rounded p-4">
-              <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-              <p>
-                Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor
-                stet amet eirmod eos labore diam
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded"
-                  src="{% static 'img/testimonial-1.jpg' %}"
-                  alt=""
-                />
-                style="width: 50px; height: 50px" />
-                <div class="ps-3">
-                  <h5 class="mb-1">Client Name</h5>
-                  <small>Profession</small>
+        <!-- Search Section -->
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px">
+            <div class="container">
+                <div class="search-box">
+                    <div class="row g-2">
+                        <div class="col-md-10">
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control border-0 py-3" placeholder="Tìm kiếm theo khu vực..." style="border-radius: 10px;" />
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select border-0 py-3" style="border-radius: 10px;">
+                                        <option selected>Loại phương tiện</option>
+                                        <option value="1">Xe con</option>
+                                        <option value="2">Xe tải</option>
+                                        <option value="3">Xe buýt</option>
+                                        <option value="4">Xe máy</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select border-0 py-3" style="border-radius: 10px;">
+                                        <option selected>Vị trí camera</option>
+                                        <option value="1">Quận 1</option>
+                                        <option value="2">Quận 3</option>
+                                        <option value="3">Bình Thạnh</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-dark border-0 w-100 py-3" style="border-radius: 10px;">
+                                <i class="fas fa-search me-2"></i>Tìm Kiếm
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="testimonial-item bg-light rounded p-4">
-              <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-              <p>
-                Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor
-                stet amet eirmod eos labore diam
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded"
-                  src="{% static 'img/testimonial-2.jpg' %}"
-                  style="width: 50px; height: 50px"
-                />
-                <div class="ps-3">
-                  <h5 class="mb-1">Client Name</h5>
-                  <small>Profession</small>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-item bg-light rounded p-4">
-              <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-              <p>
-                Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor
-                stet amet eirmod eos labore diam
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded"
-                  src="{% static 'img/testimonial-3.jpg' %}"
-                  style="width: 50px; height: 50px"
-                />
-                <div class="ps-3">
-                  <h5 class="mb-1">Client Name</h5>
-                  <small>Profession</small>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-item bg-light rounded p-4">
-              <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-              <p>
-                Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor
-                stet amet eirmod eos labore diam
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded"
-                  src="{% static 'img/testimonial-4.jpg' %}"
-                  style="width: 50px; height: 50px"
-                />
-                <div class="ps-3">
-                  <h5 class="mb-1">Client Name</h5>
-                  <small>Profession</small>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- Testimonial End -->
 
-      <!-- Footer Start -->
-      <div
-        class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn"
-        data-wow-delay="0.1s"
-      >
-        <div class="container py-5">
-          <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-white mb-4">Company</h5>
-              <a class="btn btn-link text-white-50" href="">About Us</a>
-              <a class="btn btn-link text-white-50" href="">Report_issue</a>
-              <a class="btn btn-link text-white-50" href="">Our Services</a>
-              <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-              <a class="btn btn-link text-white-50" href=""
-                >Terms & Condition</a
-              >
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-white mb-4">Quick Links</h5>
-              <a class="btn btn-link text-white-50" href="">About Us</a>
-              <a class="btn btn-link text-white-50" href="">Contact Us</a>
+        <!-- Features Section -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <span class="text-primary">Tính năng</span> hệ thống giám sát giao thông
+                </h1>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="text-decoration-none" href="about.html">
+                            <div class="feature-card p-4">
+                                <div class="feature-icon mx-auto mb-4">
+                                    <i class="fa fa-3x fa-car text-white"></i>
+                                </div>
+                                <h6 class="mb-3 text-center fw-bold">Đếm phương tiện</h6>
+                                <p class="mb-0 text-muted text-center">Theo thời gian thực với độ chính xác cao</p>
+                            </div>
+                        </a>
+                    </div>
 
-              <a class="btn btn-link text-white-50" href="">Our Services</a>
-              <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-              <a class="btn btn-link text-white-50" href=""
-                >Terms & Condition</a
-              >
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-white mb-4">Contact</h5>
-              <p class="mb-2">
-                <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York,
-                USA
-              </p>
-              <p class="mb-2">
-                <i class="fa fa-phone-alt me-3"></i>+012 345 67890
-              </p>
-              <p class="mb-2">
-                <i class="fa fa-envelope me-3"></i>info@example.com
-              </p>
-              <div class="d-flex pt-2">
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-white mb-4">Newsletter</h5>
-              <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-              <div class="position-relative mx-auto" style="max-width: 400px">
-                <input
-                  class="form-control bg-transparent w-100 py-3 ps-4 pe-5"
-                  type="text"
-                  placeholder="Your email"
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
-                >
-                  SignUp
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="copyright">
-            <div class="row">
-              <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                &copy; <a class="border-bottom" href="#">Your Site Name</a>, All
-                Right Reserved.
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <a class="text-decoration-none" href="job-list.html">
+                            <div class="feature-card p-4">
+                                <div class="feature-icon mx-auto mb-4">
+                                    <i class="fa fa-3x fa-tachometer-alt text-white"></i>
+                                </div>
+                                <h6 class="mb-3 text-center fw-bold">Đo vận tốc</h6>
+                                <p class="mb-0 text-muted text-center">Tính toán chính xác tốc độ từng xe</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By
-                <a class="border-bottom" href="https://htmlcodex.com"
-                  >HTML Codex</a
-                >
-              </div>
-              <div class="col-md-6 text-center text-md-end">
-                <div class="footer-menu">
-                  <a href="">Home</a>
-                  <a href="">Cookies</a>
-                  <a href="">Help</a>
-                  <a href="">FQAs</a>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <a class="text-decoration-none" href="category.html">
+                            <div class="feature-card p-4">
+                                <div class="feature-icon mx-auto mb-4">
+                                    <i class="fa fa-3x fa-chart-bar text-white"></i>
+                                </div>
+                                <h6 class="mb-3 text-center fw-bold">Phân tích lưu lượng</h6>
+                                <p class="mb-0 text-muted text-center">Theo khung giờ, khu vực chi tiết</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <a class="text-decoration-none" href="job-detail.html">
+                            <div class="feature-card p-4">
+                                <div class="feature-icon mx-auto mb-4">
+                                    <i class="fa fa-3x fa-map-marked-alt text-white"></i>
+                                </div>
+                                <h6 class="mb-3 text-center fw-bold">Bản đồ giao thông</h6>
+                                <p class="mb-0 text-muted text-center">Hiển thị vị trí các camera</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- Footer End -->
 
-      <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
-        ><i class="bi bi-arrow-up"></i
-      ></a>
+        <!-- About Section -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 about-bg rounded overflow-hidden about-image-grid">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid w-100" src="{% static 'img/hình1.jpg' %}" style="margin-top: 15%"/>
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid" src="{% static 'img/hinhanh2.jpg' %}" style="width: 85%; margin-top: 15%" />
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid" src="{% static 'img/hinhanh3.jpg' %}" style="width: 85%" />
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid w-100" src="{% static 'img/hinhanh4.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="mb-4 display-6">Giải pháp giám sát giao thông <span class="text-primary">thông minh</span></h1>
+                        <p class="mb-4 fs-5">
+                            Hệ thống giám sát giao thông của chúng tôi sử dụng công nghệ camera hiện đại kết hợp với bản đồ số để giúp quản lý, theo dõi và phân tích tình hình giao thông tại các khu vực trọng điểm trong thành phố Hồ Chí Minh.
+                        </p>
+                        <div class="mb-3">
+                            <p class="fs-6">
+                                <i class="fa fa-check text-primary me-3"></i>Hiển thị trực quan vị trí camera trên bản đồ tương tác
+                            </p>
+                            <p class="fs-6">
+                                <i class="fa fa-check text-primary me-3"></i>Phân tích dữ liệu lưu lượng phương tiện theo thời gian thực
+                            </p>
+                            <p class="fs-6">
+                                <i class="fa fa-check text-primary me-3"></i>Hỗ trợ cơ quan chức năng quản lý giao thông hiệu quả
+                            </p>
+                            <p class="fs-6">
+                                <i class="fa fa-check text-primary me-3"></i>Công nghệ AI và Machine Learning tiên tiến
+                            </p>
+                        </div>
+                        <a class="btn btn-gradient py-3 px-5 mt-3" href="job-detail.html">
+                            <i class="fas fa-map me-2"></i>Xem bản đồ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="stats-card">
+                            <i class="fas fa-camera fa-3x mb-3"></i>
+                            <h2 class="display-4 fw-bold">50+</h2>
+                            <p class="fs-5 mb-0">Camera Giám Sát</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="stats-card">
+                            <i class="fas fa-clock fa-3x mb-3"></i>
+                            <h2 class="display-4 fw-bold">24/7</h2>
+                            <p class="fs-5 mb-0">Hoạt Động Liên Tục</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="stats-card">
+                            <i class="fas fa-check-circle fa-3x mb-3"></i>
+                            <h2 class="display-4 fw-bold">98%</h2>
+                            <p class="fs-5 mb-0">Độ Chính Xác</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <h1 class="text-center mb-5">Đánh giá từ <span class="text-primary">khách hàng</span></h1>
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-card">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p class="fs-6">
+                            Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả hơn rất nhiều.
+                        </p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-1.jpg' %}" style="width: 50px; height: 50px" />
+                            <div class="ps-3">
+                                <h6 class="mb-1">Nguyễn Văn A</h6>
+                                <small class="text-muted">Giám đốc Giao thông</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p class="fs-6">
+                            Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo cáo trực quan, dễ hiểu.
+                        </p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-2.jpg' %}" style="width: 50px; height: 50px" />
+                            <div class="ps-3">
+                                <h6 class="mb-1">Trần Thị B</h6>
+                                <small class="text-muted">Chuyên viên Phân tích</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p class="fs-6">
+                            Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi toàn bộ hệ thống.
+                        </p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-3.jpg' %}" style="width: 50px; height: 50px" />
+                            <div class="ps-3">
+                                <h6 class="mb-1">Lê Văn C</h6>
+                                <small class="text-muted">Kỹ sư Hệ thống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p class="fs-6">
+                            Tốc độ xử lý nhanh, báo cáo real-time giúp ra quyết định kịp thời trong quản lý giao thông.
+                        </p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-4.jpg' %}" style="width: 50px; height: 50px" />
+                            <div class="ps-3">
+                                <h6 class="mb-1">Phạm Thị D</h6>
+                                <small class="text-muted">Quản lý Dự án</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-white mb-4"><i class="bi bi-camera-video me-2"></i>TrafficVision</h5>
+                        <p>Hệ thống giám sát giao thông thông minh sử dụng công nghệ AI và bản đồ số.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-white mb-4">Liên Kết Nhanh</h5>
+                        <a class="btn btn-link text-white-50" href="about.html">Giám Sát Trực Tuyến</a>
+                        <a class="btn btn-link text-white-50" href="job-list.html">Đo Tốc Độ</a>
+                        <a class="btn btn-link text-white-50" href="category.html">Báo Cáo</a>
+                        <a class="btn btn-link text-white-50" href="contact.html">Thống Kê</a>
+                        <a class="btn btn-link text-white-50" href="job-detail.html">Bản Đồ Camera</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-white mb-4">Liên Hệ</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>TP. Hồ Chí Minh, Việt Nam</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@trafficvision.vn</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-white mb-4">Nhận Tin Tức</h5>
+                        <p>Đăng ký để nhận thông tin cập nhật về hệ thống.</p>
+                        <div class="position-relative mx-auto" style="max-width: 400px">
+                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Email của bạn" style="border-radius: 50px;" />
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" style="border-radius: 50px;">
+                                Đăng Ký
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">TrafficVision 2024</a>, Bảo lưu mọi quyền.
+                            Thiết kế bởi <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="index.html">Trang chủ</a>
+                                <a href="">Cookies</a>
+                                <a href="">Trợ giúp</a>
+                                <a href="">FAQs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -1216,8 +523,6 @@
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-
-    <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-  </body>
+</body>
 </html>
