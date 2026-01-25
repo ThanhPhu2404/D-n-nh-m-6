@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="utf-8">
     <title>Báo Cáo Phương Tiện - Hệ Thống Giám Sát Giao Thông</title>
@@ -29,7 +28,7 @@
 
         .page-header-report {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%),
-            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
             background-size: cover;
             padding: 100px 0 60px;
             position: relative;
@@ -195,7 +194,6 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -215,8 +213,7 @@
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
             </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -263,15 +260,13 @@
                             <label for="start_date" class="form-label">
                                 <i class="fas fa-calendar-alt me-2 text-primary"></i>Từ ngày:
                             </label>
-                            <input type="date" class="form-control" id="start_date" name="start_date"
-                                value="{{ request.GET.start_date }}">
+                            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
                         </div>
                         <div class="col-md-3">
                             <label for="end_date" class="form-label">
                                 <i class="fas fa-calendar-check me-2 text-primary"></i>Đến ngày:
                             </label>
-                            <input type="date" class="form-control" id="end_date" name="end_date"
-                                value="{{ request.GET.end_date }}">
+                            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
                         </div>
                         <div class="col-md-3">
                             <label for="location" class="form-label">
@@ -279,17 +274,10 @@
                             </label>
                             <select class="form-select" id="location" name="location">
                                 <option value="" {% if not request.GET.location %}selected{% endif %}>Tất cả</option>
-                                <option value="Quận 1" {% if request.GET.location=="Quận 1" %}selected{% endif %}>Quận 1
-                                </option>
-                                <option value="Quận 3" {% if request.GET.location=="Quận 3" %}selected{% endif %}>Quận 3
-                                </option>
-                                <option value="Quận 5">Quận 5</option>
-                                <option value="Quận 7">Quận 7</option>
-                                <option value="Quận 10">Quận 10</option>
-                                <option value="Thủ Đức">Thủ Đức</option>
-                                <option value="Bình Thạnh">Bình Thạnh</option>
-                                <option value="Tân Bình">Tân Bình</option>
-                                <option value="Phú Nhuận">Phú Nhuận</option>
+                                <option value="Camera 1" {% if request.GET.location == "Camera 1" %}selected{% endif %}>Camera 1</option>
+                                <option value="Camera 2" {% if request.GET.location == "Camera 2" %}selected{% endif %}>Camera 2</option>
+                                <option value="Camera 3">Camera 3</option>
+                                <option value="Camera 4">Camera 4</option>
                             </select>
                         </div>
                         <div class="col-md-3 d-flex align-items-end">
@@ -345,13 +333,11 @@
                     </div>
                     <div class="mb-4">
                         <span class="legend-item">
-                            <span class="legend-color"
-                                style="background: linear-gradient(135deg, #667eea, #764ba2);"></span>
+                            <span class="legend-color" style="background: linear-gradient(135deg, #667eea, #764ba2);"></span>
                             Số lượng phương tiện
                         </span>
                         <span class="legend-item">
-                            <span class="legend-color"
-                                style="background: linear-gradient(135deg, #56ab2f, #a8e063);"></span>
+                            <span class="legend-color" style="background: linear-gradient(135deg, #56ab2f, #a8e063);"></span>
                             Tốc độ trung bình
                         </span>
                     </div>
@@ -399,8 +385,7 @@
                     <div class="col-lg-4">
                         <h5 class="text-white mb-4">Kết Nối</h5>
                         <div class="d-flex">
-                            <a class="btn btn-outline-light btn-social me-2" href="#"><i
-                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-youtube"></i></a>
                             <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
@@ -411,8 +396,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-12 text-center py-3">
-                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi
-                            quyền.
+                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
                         </div>
                     </div>
                 </div>
@@ -449,7 +433,7 @@
                 responsive: true,
                 maintainAspectRatio: true,
                 plugins: {
-                    legend: {
+                    legend: { 
                         display: false
                     }
                 },
@@ -509,20 +493,16 @@
         const locationChart = new Chart(locationCtx, {
             type: 'horizontalBar',
             data: {
-                labels: ['Quận 1', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 10', 'Thủ Đức', 'Bình Thạnh', 'Tân Bình', 'Phú Nhuận'],
+                labels: ['Quận 1', 'Quận 3', 'Bình Thạnh', 'Phú Nhuận', 'Tân Bình'],
                 datasets: [{
                     label: 'Lưu lượng xe',
-                    data: [850, 720, 580, 640, 520, 480, 610, 550, 490],
+                    data: [850, 720, 640, 580, 520],
                     backgroundColor: [
                         'rgba(102, 126, 234, 0.8)',
                         'rgba(86, 171, 47, 0.8)',
                         'rgba(245, 87, 108, 0.8)',
                         'rgba(240, 147, 251, 0.8)',
-                        'rgba(168, 224, 99, 0.8)',
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(86, 171, 47, 0.8)',
-                        'rgba(245, 87, 108, 0.8)',
-                        'rgba(240, 147, 251, 0.8)'
+                        'rgba(168, 224, 99, 0.8)'
                     ],
                     borderRadius: 10
                 }]
@@ -555,5 +535,4 @@
         new WOW().init();
     </script>
 </body>
-
 </html>

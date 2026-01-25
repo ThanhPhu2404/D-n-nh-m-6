@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="utf-8">
     <title>Thống Kê Giao Thông - Hệ Thống Giám Sát</title>
@@ -30,7 +29,7 @@
 
         .stats-header {
             background: linear-gradient(135deg, rgba(79, 172, 254, 0.95) 0%, rgba(0, 242, 254, 0.95) 100%),
-            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
             background-size: cover;
             padding: 100px 0 60px;
             position: relative;
@@ -42,20 +41,13 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%);
             animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         .filter-section {
@@ -255,7 +247,6 @@
                 opacity: 0;
                 transform: scale(0.9);
             }
-
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -275,8 +266,7 @@
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
             </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -323,15 +313,13 @@
                             <label for="start_date" class="form-label fw-bold">
                                 <i class="fas fa-calendar-alt me-2 text-primary"></i>Từ ngày
                             </label>
-                            <input type="date" class="form-control modern-input" id="start_date" name="start_date"
-                                value="{{ request.GET.start_date }}">
+                            <input type="date" class="form-control modern-input" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
                         </div>
                         <div class="col-md-3">
                             <label for="end_date" class="form-label fw-bold">
                                 <i class="fas fa-calendar-check me-2 text-primary"></i>Đến ngày
                             </label>
-                            <input type="date" class="form-control modern-input" id="end_date" name="end_date"
-                                value="{{ request.GET.end_date }}">
+                            <input type="date" class="form-control modern-input" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
                         </div>
                         <div class="col-md-3">
                             <label for="location" class="form-label fw-bold">
@@ -339,17 +327,9 @@
                             </label>
                             <select class="form-select modern-input" id="location" name="location">
                                 <option value="" {% if not request.GET.location %}selected{% endif %}>Tất cả</option>
-                                <option value="Quận 1" {% if request.GET.location=="Quận 1" %}selected{% endif %}>Quận 1
-                                </option>
-                                <option value="Quận 3" {% if request.GET.location=="Quận 3" %}selected{% endif %}>Quận 3
-                                </option>
-                                <option value="Quận 5">Quận 5</option>
-                                <option value="Quận 7">Quận 7</option>
-                                <option value="Quận 10">Quận 10</option>
-                                <option value="Thủ Đức">Thủ Đức</option>
-                                <option value="Bình Thạnh">Bình Thạnh</option>
-                                <option value="Tân Bình">Tân Bình</option>
-                                <option value="Phú Nhuận">Phú Nhuận</option>
+                                <option value="Camera 1" {% if request.GET.location == "Camera 1" %}selected{% endif %}>Camera 1</option>
+                                <option value="Camera 2" {% if request.GET.location == "Camera 2" %}selected{% endif %}>Camera 2</option>
+                                <option value="Camera 3">Camera 3</option>
                             </select>
                         </div>
                         <div class="col-md-3 d-flex align-items-end">
@@ -382,8 +362,7 @@
                                 <i class="fas fa-tachometer-alt fa-3x text-white"></i>
                             </div>
                             <div class="text-center">
-                                <div class="metric-value">{{ avg_speed|default:"43.7" }} <span
-                                        style="font-size: 1.5rem;">km/h</span></div>
+                                <div class="metric-value">{{ avg_speed|default:"43.7" }} <span style="font-size: 1.5rem;">km/h</span></div>
                                 <div class="metric-label">Vận Tốc Trung Bình</div>
                                 <span class="trend-indicator trend-down">
                                     <i class="fas fa-arrow-down me-2"></i>-3% so với tuần trước
@@ -397,8 +376,7 @@
                                 <i class="fas fa-clock fa-3x text-white"></i>
                             </div>
                             <div class="text-center">
-                                <div class="metric-value" style="font-size: 2.2rem;">{{ peak_time|default:"07:00 -
-                                    08:30" }}</div>
+                                <div class="metric-value" style="font-size: 2.2rem;">{{ peak_time|default:"07:00 - 08:30" }}</div>
                                 <div class="metric-label">Thời Điểm Cao Điểm</div>
                                 <span class="trend-indicator trend-up">
                                     <i class="fas fa-info-circle me-2"></i>Ổn định
@@ -442,32 +420,28 @@
                 <!-- Thống kê bổ sung -->
                 <div class="row g-4 mt-4">
                     <div class="col-md-3">
-                        <div class="text-center p-4"
-                            style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 20px;">
+                        <div class="text-center p-4" style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 20px;">
                             <i class="fas fa-users fa-3x mb-3" style="color: #4facfe;"></i>
                             <h4 class="fw-bold">50+</h4>
                             <p class="text-muted mb-0">Camera Hoạt Động</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="text-center p-4"
-                            style="background: linear-gradient(135deg, rgba(161, 140, 209, 0.1) 0%, rgba(251, 194, 235, 0.1) 100%); border-radius: 20px;">
+                        <div class="text-center p-4" style="background: linear-gradient(135deg, rgba(161, 140, 209, 0.1) 0%, rgba(251, 194, 235, 0.1) 100%); border-radius: 20px;">
                             <i class="fas fa-map-marked-alt fa-3x mb-3" style="color: #a18cd1;"></i>
                             <h4 class="fw-bold">15</h4>
                             <p class="text-muted mb-0">Khu Vực Giám Sát</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="text-center p-4"
-                            style="background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%); border-radius: 20px;">
+                        <div class="text-center p-4" style="background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%); border-radius: 20px;">
                             <i class="fas fa-database fa-3x mb-3" style="color: #fa709a;"></i>
                             <h4 class="fw-bold">98%</h4>
                             <p class="text-muted mb-0">Độ Chính Xác</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="text-center p-4"
-                            style="background: linear-gradient(135deg, rgba(48, 207, 208, 0.1) 0%, rgba(51, 8, 103, 0.1) 100%); border-radius: 20px;">
+                        <div class="text-center p-4" style="background: linear-gradient(135deg, rgba(48, 207, 208, 0.1) 0%, rgba(51, 8, 103, 0.1) 100%); border-radius: 20px;">
                             <i class="fas fa-clock fa-3x mb-3" style="color: #30cfd0;"></i>
                             <h4 class="fw-bold">24/7</h4>
                             <p class="text-muted mb-0">Hoạt Động</p>
@@ -494,8 +468,7 @@
                     <div class="col-lg-4">
                         <h5 class="text-white mb-4">Kết Nối</h5>
                         <div class="d-flex">
-                            <a class="btn btn-outline-light btn-social me-2" href="#"><i
-                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-social me-2" href="#"><i class="fab fa-youtube"></i></a>
                             <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
@@ -506,8 +479,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-12 text-center py-3">
-                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi
-                            quyền.
+                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
                         </div>
                     </div>
                 </div>
@@ -644,5 +616,4 @@
         });
     </script>
 </body>
-
 </html>

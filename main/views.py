@@ -227,7 +227,7 @@ def detect_vehicles_speed_view(request):
     tracker = Sort()
     vehicle_speeds = []
     frame_id = 0
-    distance_meters = 5
+    distance_meters = 20
     roi_line1 = 250
     roi_line2 = 400
 
