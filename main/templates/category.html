@@ -491,7 +491,7 @@
         // Location Chart
         const locationCtx = document.getElementById('locationChart').getContext('2d');
         const locationChart = new Chart(locationCtx, {
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
                 labels: ['Quận 1', 'Quận 3', 'Bình Thạnh', 'Phú Nhuận', 'Tân Bình'],
                 datasets: [{
@@ -504,7 +504,8 @@
                         'rgba(240, 147, 251, 0.8)',
                         'rgba(168, 224, 99, 0.8)'
                     ],
-                    borderRadius: 10
+                    borderRadius: 10,
+                    borderWidth: 0
                 }]
             },
             options: {
@@ -521,11 +522,21 @@
                         beginAtZero: true,
                         grid: {
                             color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     },
                     y: {
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     }
                 }
