@@ -7,18 +7,23 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <link href="{% static 'img/favicon.ico' %}" rel="icon" />
 
+    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
 
+    <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
+    <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
 
+    <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 
+    <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 
     <style>
@@ -306,47 +311,37 @@
             color: #667eea;
         }
 
-        /* --- PHẦN BACK TO TOP MỚI --- */
-        .back-to-top {
-            position: fixed;
-            display: none; /* Ẩn mặc định, script sẽ điều khiển */
-            right: 30px;
-            bottom: 30px;
-            z-index: 99;
-            background: var(--gradient-testimonial);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50% !important;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-            color: white !important;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
-        }
-
         @media (max-width: 768px) {
-            .stats-section { padding: 30px 20px; margin-top: -60px; }
-            .stat-item:not(:last-child)::after { display: none; }
-            .stat-number { font-size: 2.5rem; }
-            .section-title h2 { font-size: 2rem; }
+            .stats-section {
+                padding: 30px 20px;
+                margin-top: -60px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
+        <!-- Spinner -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
                 <span class="sr-only">Đang tải...</span>
             </div>
         </div>
 
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
@@ -368,6 +363,7 @@
             </div>
         </nav>
 
+        <!-- Header -->
         <div class="testimonial-header">
             <div class="container my-5 pt-5 pb-4 position-relative" style="z-index: 1;">
                 <h1 class="display-3 text-white mb-3 animated slideInDown fw-bold">
@@ -382,6 +378,7 @@
             </div>
         </div>
 
+        <!-- Stats Section -->
         <div class="container">
             <div class="stats-section wow fadeInUp" data-wow-delay="0.1s">
                 <div class="row">
@@ -413,6 +410,7 @@
             </div>
         </div>
 
+        <!-- Testimonials -->
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
                 <div class="section-title">
@@ -425,25 +423,44 @@
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả hơn."</p>
+                            <p class="testimonial-text">
+                                "Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả hơn rất nhiều. Đội ngũ hỗ trợ cũng rất nhiệt tình."
+                            </p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-1.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Nguyễn Văn An</h6><small>Giám Đốc Giao Thông</small></div>
+                                <div class="author-info">
+                                    <h6>Nguyễn Văn An</h6>
+                                    <small>Giám Đốc Giao Thông</small>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo cáo trực quan, dễ hiểu."</p>
+                            <p class="testimonial-text">
+                                "Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo cáo trực quan, dễ hiểu. Đây là công cụ không thể thiếu cho công việc của tôi."
+                            </p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-2.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Trần Thị Bình</h6><small>Chuyên Viên Phân Tích</small></div>
+                                <div class="author-info">
+                                    <h6>Trần Thị Bình</h6>
+                                    <small>Chuyên Viên Phân Tích</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -452,31 +469,116 @@
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi toàn bộ hệ thống."</p>
+                            <p class="testimonial-text">
+                                "Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi toàn bộ hệ thống. Interface thân thiện, dễ sử dụng ngay từ lần đầu."
+                            </p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-3.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Lê Văn Cường</h6><small>Kỹ Sư Hệ Thống</small></div>
+                                <div class="author-info">
+                                    <h6>Lê Văn Cường</h6>
+                                    <small>Kỹ Sư Hệ Thống</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="testimonial-card">
+                            <i class="fa fa-quote-left quote-icon"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                "Tốc độ xử lý nhanh, báo cáo real-time giúp ra quyết định kịp thời trong quản lý giao thông. Rất hài lòng với sản phẩm này."
+                            </p>
+                            <div class="testimonial-author">
+                                <img class="author-image" src="{% static 'img/testimonial-4.jpg' %}" alt="Client" />
+                                <div class="author-info">
+                                    <h6>Phạm Thị Dung</h6>
+                                    <small>Quản Lý Dự Án</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="testimonial-card">
+                            <i class="fa fa-quote-left quote-icon"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                "Độ chính xác cao, hỗ trợ nhiều loại phương tiện. Dashboard đẹp, thông tin hiển thị rõ ràng. Đội ngũ technical support rất tốt."
+                            </p>
+                            <div class="testimonial-author">
+                                <img class="author-image" src="{% static 'img/testimonial-1.jpg' %}" alt="Client" />
+                                <div class="author-info">
+                                    <h6>Hoàng Minh Tuấn</h6>
+                                    <small>Trưởng Phòng IT</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="testimonial-card">
+                            <i class="fa fa-quote-left quote-icon"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                "Giải pháp tuyệt vời cho quản lý giao thông đô thị. Hệ thống ổn định, ít khi gặp lỗi. Đáng đồng tiền bát gạo!"
+                            </p>
+                            <div class="testimonial-author">
+                                <img class="author-image" src="{% static 'img/testimonial-2.jpg' %}" alt="Client" />
+                                <div class="author-info">
+                                    <h6>Võ Thị Hà</h6>
+                                    <small>Phó Giám Đốc Sở GTVT</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Video Testimonial -->
                 <div class="testimonial-video wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <div class="video-play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
                     <h3 class="fw-bold mb-3">Xem Video Giới Thiệu</h3>
                     <p class="text-muted mb-0">Tìm hiểu thêm về hệ thống và cách chúng tôi giúp khách hàng</p>
                 </div>
 
+                <!-- CTA Section -->
                 <div class="cta-section wow fadeInUp" data-wow-delay="0.8s">
                     <h3>Bạn muốn trải nghiệm hệ thống?</h3>
                     <p>Đăng ký ngay hôm nay để nhận tư vấn miễn phí và demo trực tiếp</p>
-                    <a href="contact.html" class="btn btn-cta"><i class="fas fa-rocket me-2"></i>Bắt Đầu Ngay</a>
+                    <a href="contact.html" class="btn btn-cta">
+                        <i class="fas fa-rocket me-2"></i>Bắt Đầu Ngay
+                    </a>
                 </div>
             </div>
         </div>
 
+        <!-- Footer -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">
                 <div class="row g-5">
@@ -508,7 +610,9 @@
                         <p>Đăng ký để nhận thông tin mới nhất.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px">
                             <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Email của bạn" />
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Đăng Ký</button>
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
+                                Đăng Ký
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -532,35 +636,21 @@
             </div>
         </div>
 
-        <a href="#" class="btn back-to-top d-flex"><i class="bi bi-arrow-up"></i></a>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>
-        $(document).ready(function() {
-            // Hiệu ứng hiện nút Back to Top khi cuộn xuống 300px
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 300) {
-                    $('.back-to-top').fadeIn('slow').css('display', 'flex');
-                } else {
-                    $('.back-to-top').fadeOut('slow');
-                }
-            });
-
-            // Cuộn mượt lên trên khi nhấn
-            $('.back-to-top').click(function () {
-                $('html, body').animate({scrollTop: 0}, 100, 'easeInOutExpo');
-                return false;
-            });
-        });
+        new WOW().init();
     </script>
 </body>
 </html>
