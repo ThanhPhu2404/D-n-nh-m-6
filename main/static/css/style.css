@@ -1,9 +1,31 @@
 /********** Template CSS **********/
 :root {
-  --primary: #00b074;
+  --primary: #00ADEF;
   --secondary: #2b9bff;
-  --light: #effdf5;
+  --light: #f0f8ff;
   --dark: #2b3940;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: #0089bd !important;
+  border-color: #0089bd !important;
+}
+
+.logo-text {
+  color: #1F2937 !important;
 }
 
 .back-to-top {
@@ -99,6 +121,7 @@
 }
 
 @media (max-width: 991.98px) {
+
   .navbar-dark .navbar-nav .nav-link,
   .navbar-light .navbar-nav .nav-link {
     margin-right: 0;
@@ -233,47 +256,37 @@
   background-size: cover;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
   color: var(--light);
 }
 
 /*** About ***/
 .about-bg {
-  background-image: -webkit-repeating-radial-gradient(
-    center center,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 1px,
-    transparent 1px,
-    transparent 100%
-  );
-  background-image: -moz-repeating-radial-gradient(
-    center center,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 1px,
-    transparent 1px,
-    transparent 100%
-  );
-  background-image: -ms-repeating-radial-gradient(
-    center center,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 1px,
-    transparent 1px,
-    transparent 100%
-  );
-  background-image: -o-repeating-radial-gradient(
-    center center,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 1px,
-    transparent 1px,
-    transparent 100%
-  );
-  background-image: repeating-radial-gradient(
-    center center,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 1px,
-    transparent 1px,
-    transparent 100%
-  );
+  background-image: -webkit-repeating-radial-gradient(center center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 100%);
+  background-image: -moz-repeating-radial-gradient(center center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 100%);
+  background-image: -ms-repeating-radial-gradient(center center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 100%);
+  background-image: -o-repeating-radial-gradient(center center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 100%);
+  background-image: repeating-radial-gradient(center center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 100%);
   background-size: 5px 5px;
 }
 

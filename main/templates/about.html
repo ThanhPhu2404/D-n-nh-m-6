@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -8,7 +9,8 @@
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
@@ -24,169 +26,198 @@
 
   <style>
     :root {
-        --primary-gradient: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
-        --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
+      --primary-gradient: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
+      --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
     .page-header-modern {
-        background: linear-gradient(135deg, rgba(0, 173, 239, 0.9) 0%, rgba(13, 110, 253, 0.9) 100%),
-                    url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
-        background-size: cover;
-        padding: 100px 0 60px;
-        position: relative;
-        overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 173, 239, 0.9) 0%, rgba(13, 110, 253, 0.9) 100%),
+      url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+      background-size: cover;
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
     }
 
     .page-header-modern::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
-        opacity: 0.5;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
+      opacity: 0.5;
     }
 
     .video-container {
-        position: relative;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow-elevated);
-        background: #000;
-        transition: transform 0.3s ease;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-elevated);
+      background: #000;
+      transition: transform 0.3s ease;
     }
 
     .video-container:hover {
-        transform: scale(1.02);
+      transform: scale(1.02);
     }
 
     .video-container video {
-        width: 100%;
-        height: auto;
-        display: block;
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .stats-box {
-        background: white;
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-        height: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      height: 100%;
     }
 
     .stats-box:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 173, 239, 0.15);
-        border-color: #00ADEF;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 173, 239, 0.15);
+      border-color: #00ADEF;
     }
 
-    
-    .stats-icon.car { background: linear-gradient(135deg, #00ADEF 0%, #007bff 100%); }
-    .stats-icon.truck { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-    .stats-icon.bus { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-    .stats-icon.motorbike { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-    
-    .stats-text.car { color: #00ADEF !important; }
-    .stats-text.truck { color: #43e97b !important; }
-    .stats-text.bus { color: #fa709a !important; }
-    .stats-text.motorbike { color: #f5576c !important; }
-    
+
+    .stats-icon.car {
+      background: linear-gradient(135deg, #00ADEF 0%, #007bff 100%);
+    }
+
+    .stats-icon.truck {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .stats-icon.bus {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .stats-icon.motorbike {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .stats-text.car {
+      color: #00ADEF !important;
+    }
+
+    .stats-text.truck {
+      color: #43e97b !important;
+    }
+
+    .stats-text.bus {
+      color: #fa709a !important;
+    }
+
+    .stats-text.motorbike {
+      color: #f5576c !important;
+    }
+
     .stats-icon {
-        width: 60px;
-        height: 60px;
-        background: var(--primary-gradient);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 15px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-gradient);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
     }
 
     .btn-detect {
-        background: var(--primary-gradient);
-        border: none;
-        border-radius: 50px;
-        padding: 15px 40px;
-        font-size: 18px;
-        font-weight: 600;
-        color: white;
-        box-shadow: 0 8px 25px rgba(0, 173, 239, 0.3);
-        transition: all 0.3s ease;
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 50px;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 8px 25px rgba(0, 173, 239, 0.3);
+      transition: all 0.3s ease;
     }
 
     .btn-detect:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(0, 173, 239, 0.4);
-        color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 173, 239, 0.4);
+      color: white;
     }
 
     .btn-detect:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
+      opacity: 0.7;
+      cursor: not-allowed;
     }
 
     .table-modern {
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: var(--shadow-elevated);
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow-elevated);
     }
 
     .table-modern thead {
-        background: var(--primary-gradient);
-        color: white;
+      background: var(--primary-gradient);
+      color: white;
     }
 
     .table-modern thead th {
-        border: none;
-        padding: 18px;
-        font-weight: 600;
+      border: none;
+      padding: 18px;
+      font-weight: 600;
     }
 
     .table-modern tbody td {
-        padding: 15px 18px;
-        vertical-align: middle;
+      padding: 15px 18px;
+      vertical-align: middle;
     }
 
     .table-modern tbody tr {
-        transition: background 0.2s ease;
+      transition: background 0.2s ease;
     }
 
     .table-modern tbody tr:hover {
-        background: rgba(0, 173, 239, 0.05);
+      background: rgba(0, 173, 239, 0.05);
     }
 
     .total-counter {
-        background: var(--primary-gradient);
-        color: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: var(--shadow-elevated);
-        text-align: center;
+      background: var(--primary-gradient);
+      color: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow-elevated);
+      text-align: center;
     }
 
     .total-counter h4 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        opacity: 0.9;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      opacity: 0.9;
     }
 
     .total-counter .count {
-        font-size: 3rem;
-        font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 3rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .pulse-animation {
-        animation: pulse 2s infinite;
+      animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.7; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
     }
   </style>
 </head>
@@ -196,7 +227,9 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
       <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-        <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+        <h1 class="m-0 text-primary">
+          <i class="bi bi-camera-video me-2"></i><span class="logo-text">TrafficVision</span>
+        </h1>
       </a>
       <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -398,38 +431,38 @@
         },
         body: JSON.stringify({})
       })
-      .then(response => {
-        if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        // Cập nhật số lượng từng loại xe với hiệu ứng
-        document.getElementById('count_car').innerText = data.counts?.car || 0;
-        document.getElementById('count_truck').innerText = data.counts?.truck || 0;
-        document.getElementById('count_bus').innerText = data.counts?.bus || 0;
-        document.getElementById('count_motorbike').innerText = data.counts?.motorbike || 0;
+        .then(response => {
+          if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          // Cập nhật số lượng từng loại xe với hiệu ứng
+          document.getElementById('count_car').innerText = data.counts?.car || 0;
+          document.getElementById('count_truck').innerText = data.counts?.truck || 0;
+          document.getElementById('count_bus').innerText = data.counts?.bus || 0;
+          document.getElementById('count_motorbike').innerText = data.counts?.motorbike || 0;
 
-        // Tổng số xe
-        document.getElementById('total_vehicles').innerText = data.total_vehicles || 0;
+          // Tổng số xe
+          document.getElementById('total_vehicles').innerText = data.total_vehicles || 0;
 
-        // Cập nhật bảng tốc độ
-        const vehicleTableBody = document.getElementById('vehicle-table-body');
-        vehicleTableBody.innerHTML = '';
+          // Cập nhật bảng tốc độ
+          const vehicleTableBody = document.getElementById('vehicle-table-body');
+          vehicleTableBody.innerHTML = '';
 
-        if (data.vehicles && data.vehicles.length > 0) {
-          data.vehicles.forEach((vehicle, idx) => {
-            const speed = vehicle.speed !== undefined ? vehicle.speed.toFixed(1) : '-';
-            const row = `
+          if (data.vehicles && data.vehicles.length > 0) {
+            data.vehicles.forEach((vehicle, idx) => {
+              const speed = vehicle.speed !== undefined ? vehicle.speed.toFixed(1) : '-';
+              const row = `
               <tr style="animation: fadeIn 0.5s ease-in ${idx * 0.1}s both;">
                 <td>${idx + 1}</td>
                 <td><i class="fas fa-${getVehicleIcon(vehicle.type)} me-2 text-primary"></i>${vehicle.type}</td>
                 <td><span class="badge bg-info">${speed} km/h</span></td>
               </tr>
             `;
-            vehicleTableBody.insertAdjacentHTML('beforeend', row);
-          });
-        } else {
-          vehicleTableBody.innerHTML = `
+              vehicleTableBody.insertAdjacentHTML('beforeend', row);
+            });
+          } else {
+            vehicleTableBody.innerHTML = `
             <tr>
               <td colspan="3" class="text-center text-muted py-5">
                 <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
@@ -437,23 +470,23 @@
               </td>
             </tr>
           `;
-        }
+          }
 
-        btn.disabled = false;
-        btn.classList.remove('pulse-animation');
-        btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Giám Sát Hoàn Tất';
-        
-        setTimeout(() => {
+          btn.disabled = false;
+          btn.classList.remove('pulse-animation');
+          btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Giám Sát Hoàn Tất';
+
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát';
+          }, 3000);
+        })
+        .catch(error => {
+          alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
+          console.error(error);
+          btn.disabled = false;
+          btn.classList.remove('pulse-animation');
           btn.innerHTML = '<i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát';
-        }, 3000);
-      })
-      .catch(error => {
-        alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
-        console.error(error);
-        btn.disabled = false;
-        btn.classList.remove('pulse-animation');
-        btn.innerHTML = '<i class="fas fa-play-circle me-2"></i>Bắt Đầu Giám Sát';
-      });
+        });
     });
 
     function getVehicleIcon(type) {
@@ -477,4 +510,5 @@
     document.head.appendChild(style);
   </script>
 </body>
+
 </html>

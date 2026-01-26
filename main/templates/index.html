@@ -24,6 +24,7 @@
 
     <style>
         :root {
+            /* Các biến này sẽ được ưu tiên lấy từ style.css nhưng giữ lại đây để an toàn cho các component nội bộ */
             --primary-color: #00ADEF;
             --secondary-color: #0D6EFD;
             --dark-color: #1F2937;
@@ -150,7 +151,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+                <h1 class="m-0 text-primary">
+                    <i class="bi bi-camera-video me-2"></i><span class="logo-text">TrafficVision</span>
+                </h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">

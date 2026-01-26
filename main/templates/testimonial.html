@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8" />
     <title>Đánh Giá Khách Hàng - TrafficVision</title>
@@ -9,7 +10,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+        rel="stylesheet" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
@@ -30,7 +32,7 @@
 
         .testimonial-header {
             background: linear-gradient(135deg, rgba(0, 173, 239, 0.95) 0%, rgba(13, 110, 253, 0.95) 100%),
-                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
             background-size: cover;
             padding: 100px 0 60px;
             position: relative;
@@ -42,13 +44,20 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: pulse-bg 3s ease-in-out infinite;
         }
 
         @keyframes pulse-bg {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
         }
 
         .stats-section {
@@ -264,7 +273,7 @@
             position: absolute;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             top: -200px;
             right: -100px;
@@ -309,7 +318,8 @@
         /* --- PHẦN BACK TO TOP MỚI --- */
         .back-to-top {
             position: fixed;
-            display: none; /* Ẩn mặc định, script sẽ điều khiển */
+            display: none;
+            /* Ẩn mặc định, script sẽ điều khiển */
             right: 30px;
             bottom: 30px;
             z-index: 99;
@@ -331,17 +341,30 @@
         }
 
         @media (max-width: 768px) {
-            .stats-section { padding: 30px 20px; margin-top: -60px; }
-            .stat-item:not(:last-child)::after { display: none; }
-            .stat-number { font-size: 2.5rem; }
-            .section-title h2 { font-size: 2rem; }
+            .stats-section {
+                padding: 30px 20px;
+                margin-top: -60px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
                 <span class="sr-only">Đang tải...</span>
             </div>
@@ -349,9 +372,12 @@
 
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+                <h1 class="m-0 text-primary">
+                    <i class="bi bi-camera-video me-2"></i><span class="logo-text">TrafficVision</span>
+                </h1>
             </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -425,12 +451,16 @@
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả hơn."</p>
+                            <p class="testimonial-text">"Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi
+                                quản lý giao thông hiệu quả hơn."</p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-1.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Nguyễn Văn An</h6><small>Giám Đốc Giao Thông</small></div>
+                                <div class="author-info">
+                                    <h6>Nguyễn Văn An</h6><small>Giám Đốc Giao Thông</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -438,12 +468,16 @@
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo cáo trực quan, dễ hiểu."</p>
+                            <p class="testimonial-text">"Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo
+                                cáo trực quan, dễ hiểu."</p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-2.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Trần Thị Bình</h6><small>Chuyên Viên Phân Tích</small></div>
+                                <div class="author-info">
+                                    <h6>Trần Thị Bình</h6><small>Chuyên Viên Phân Tích</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -452,12 +486,16 @@
                         <div class="testimonial-card">
                             <i class="fa fa-quote-left quote-icon"></i>
                             <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
-                            <p class="testimonial-text">"Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi toàn bộ hệ thống."</p>
+                            <p class="testimonial-text">"Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi
+                                toàn bộ hệ thống."</p>
                             <div class="testimonial-author">
                                 <img class="author-image" src="{% static 'img/testimonial-3.jpg' %}" alt="Client" />
-                                <div class="author-info"><h6>Lê Văn Cường</h6><small>Kỹ Sư Hệ Thống</small></div>
+                                <div class="author-info">
+                                    <h6>Lê Văn Cường</h6><small>Kỹ Sư Hệ Thống</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -507,8 +545,10 @@
                         <h5 class="text-white mb-4">Nhận Tin Tức</h5>
                         <p>Đăng ký để nhận thông tin mới nhất.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px">
-                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Email của bạn" />
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Đăng Ký</button>
+                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Email của bạn" />
+                            <button type="button"
+                                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Đăng Ký</button>
                         </div>
                     </div>
                 </div>
@@ -545,7 +585,7 @@
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Hiệu ứng hiện nút Back to Top khi cuộn xuống 300px
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 300) {
@@ -557,10 +597,11 @@
 
             // Cuộn mượt lên trên khi nhấn
             $('.back-to-top').click(function () {
-                $('html, body').animate({scrollTop: 0}, 100, 'easeInOutExpo');
+                $('html, body').animate({ scrollTop: 0 }, 100, 'easeInOutExpo');
                 return false;
             });
         });
     </script>
 </body>
+
 </html>

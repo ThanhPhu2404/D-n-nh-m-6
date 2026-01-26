@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8" />
     <title>Bản Đồ Camera Giao Thông - Hệ Thống Giám Sát</title>
@@ -21,7 +22,8 @@
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
 
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <style>
         :root {
@@ -35,7 +37,7 @@
 
         .map-header {
             background: linear-gradient(135deg, rgba(0, 173, 239, 0.95) 0%, rgba(13, 110, 253, 0.95) 100%),
-                        url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+            url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
             background-size: cover;
             padding: 100px 0 60px;
             position: relative;
@@ -187,11 +189,14 @@
         }
 
         @keyframes pulse-marker {
-            0%, 100% { 
+
+            0%,
+            100% {
                 box-shadow: 0 4px 15px rgba(0, 173, 239, 0.4);
                 transform: scale(1);
             }
-            50% { 
+
+            50% {
                 box-shadow: 0 8px 25px rgba(0, 173, 239, 0.6);
                 transform: scale(1.05);
             }
@@ -230,6 +235,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -247,9 +253,12 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-                <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
+                <h1 class="m-0 text-primary">
+                    <i class="bi bi-camera-video me-2"></i><span class="logo-text">TrafficVision</span>
+                </h1>
             </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -386,7 +395,8 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-12 text-center py-3">
-                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi quyền.
+                            &copy; 2024 <a class="border-bottom text-white" href="#">TrafficVision</a>. Bảo lưu mọi
+                            quyền.
                         </div>
                     </div>
                 </div>
@@ -495,7 +505,7 @@
                 `);
 
             // Add hover effect
-            marker.on('mouseover', function() {
+            marker.on('mouseover', function () {
                 this.openPopup();
             });
         });
@@ -504,4 +514,5 @@
         new WOW().init();
     </script>
 </body>
+
 </html>
