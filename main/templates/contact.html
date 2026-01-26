@@ -272,8 +272,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.html" class="nav-item nav-link">Trang chủ</a>
-                    <a href="about.html" class="nav-item nav-link">Giám sát trực tuyến</a>
-                    <a href="job-list.html" class="nav-item nav-link">Đo tốc độ phương tiện</a>
+                    <a href="job-list.html" class="nav-item nav-link">Phát hiện & Đo tốc độ phương tiện</a>
                     <a href="category.html" class="nav-item nav-link">Báo Cáo</a>
                     <a href="contact.html" class="nav-item nav-link active">Thống kê giao thông</a>
                 </div>
@@ -348,7 +347,7 @@
                                 <i class="fas fa-car fa-3x text-white"></i>
                             </div>
                             <div class="text-center">
-                                <div class="metric-value">{{ total_vehicles|default:"12,435" }}</div>
+                                <div class="metric-value">{{ total_vehicles|default:"16,698" }}</div>
                                 <div class="metric-label">Số Lượng Phương Tiện</div>
                                 <span class="trend-indicator trend-up">
                                     <i class="fas fa-arrow-up me-2"></i>+12% so với tuần trước
@@ -362,7 +361,7 @@
                                 <i class="fas fa-tachometer-alt fa-3x text-white"></i>
                             </div>
                             <div class="text-center">
-                                <div class="metric-value">{{ avg_speed|default:"43.7" }} <span style="font-size: 1.5rem;">km/h</span></div>
+                                <div class="metric-value">{{ avg_speed|default:"25.6" }} <span style="font-size: 1.5rem;">km/h</span></div>
                                 <div class="metric-label">Vận Tốc Trung Bình</div>
                                 <span class="trend-indicator trend-down">
                                     <i class="fas fa-arrow-down me-2"></i>-3% so với tuần trước
@@ -376,7 +375,7 @@
                                 <i class="fas fa-clock fa-3x text-white"></i>
                             </div>
                             <div class="text-center">
-                                <div class="metric-value" style="font-size: 2.2rem;">{{ peak_time|default:"07:00 - 08:30" }}</div>
+                                <div class="metric-value" style="font-size: 2.2rem;">{{ peak_time|default:"06:30 - 08:00" }}</div>
                                 <div class="metric-label">Thời Điểm Cao Điểm</div>
                                 <span class="trend-indicator trend-up">
                                     <i class="fas fa-info-circle me-2"></i>Ổn định

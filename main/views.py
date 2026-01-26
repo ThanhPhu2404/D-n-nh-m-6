@@ -202,66 +202,64 @@ def detect_vehicles_view(request):
 
     return JsonResponse(response_data)
 
-
 @csrf_exempt
 def detect_vehicles_speed_view(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Phương thức không hợp lệ'}, status=400)
+    if request.method not in ['POST', 'GET']:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
-    video_path = os.path.join(settings.BASE_DIR, 'main', 'static', 'img', 'dovantoc.mp4')
-
+    video_path = os.path.join(settings.BASE_DIR, 'main', 'static', 'img', 'dovantoc1.mp4')
     if not os.path.exists(video_path):
         return JsonResponse({'error': 'Không tìm thấy video'}, status=404)
 
     cap = cv2.VideoCapture(video_path)
-    fps = cap.get(cv2.CAP_PROP_FPS) or 30
+    fps = cap.get(cv2.CAP_PROP_FPS) or 25
+
+    FRAME_W, FRAME_H = 1080, 640
+    roi_line1 = 300
+    roi_line2 = 500
+    distance_meters = 10
 
     counts = {'car': 0, 'truck': 0, 'bus': 0, 'motorbike': 0}
-    colors = {
-        'car': (0, 255, 0),
-        'truck': (255, 0, 0),
-        'bus': (0, 255, 255),
-        'motorbike': (0, 0, 255),
-    }
+    colors = {'car': (0, 255, 0), 'truck': (255, 0, 0), 'bus': (0, 255, 255), 'motorbike': (0, 0, 255)}
 
-    tracker = Sort()
-    vehicle_speeds = []
-    frame_id = 0
-    distance_meters = 20
-    roi_line1 = 250
-    roi_line2 = 400
+    # Khởi tạo lại tracker bên trong hàm để reset mỗi lần chạy
+    local_tracker = Sort(max_age=15, min_hits=3, iou_threshold=0.25)
 
     track_times = {}
+    track_class_history = {} 
+    track_final_class = {}   
     counted_ids = set()
+    vehicle_speeds = []
+    frame_id = 0
 
     while True:
         ret, frame = cap.read()
-        if not ret:
-            break
+        if not ret: break
 
+        frame = cv2.resize(frame, (FRAME_W, FRAME_H))
         frame_id += 1
-        results = model(frame)[0]
 
-        detections = []
-        classes = []
+        results = model(frame)[0]
+        detections, classes = [], []
 
         for box in results.boxes:
             cls_id = int(box.cls[0])
-            class_name = model.names[cls_id]
-            if class_name in counts:
+            cls_name = model.names[cls_id]
+            if cls_name in counts:
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
                 conf = float(box.conf[0])
                 detections.append([x1, y1, x2, y2, conf])
-                classes.append(class_name)
+                classes.append(cls_name)
 
         dets_np = np.array(detections) if detections else np.empty((0, 5))
-        tracks = tracker.update(dets_np)
+        tracks = local_tracker.update(dets_np)
 
         for track in tracks:
             x1, y1, x2, y2, track_id = track
             track_id = int(track_id)
             center_y = int((y1 + y2) / 2)
 
+            # 1. Tìm class từ YOLO
             matched_class = None
             max_iou = 0
             for i, det in enumerate(detections):
@@ -270,58 +268,70 @@ def detect_vehicles_speed_view(request):
                     max_iou = iou
                     matched_class = classes[i]
 
-            if matched_class not in counts:
-                continue
+            if matched_class is None: continue
 
-            if track_id not in track_times:
-                track_times[track_id] = {}
+            # 2. Cập nhật lịch sử và lấy class phổ biến nhất (Voting)
+            history = track_class_history.setdefault(track_id, [])
+            history.append(matched_class)
+            if len(history) > 20: history.pop(0) # Giữ 20 frame gần nhất
+            
+            voted_class = max(set(history), key=history.count)
 
-            if center_y > roi_line1 and 't1' not in track_times[track_id]:
+            # 3. Logic KHÓA CLASS: Chống nhảy từ Bus/Truck sang Car
+            if track_id not in track_final_class:
+                track_final_class[track_id] = voted_class
+            else:
+                # Nếu đã từng được xác định là xe lớn, không cho phép đổi lại thành xe nhỏ
+                current_status = track_final_class[track_id]
+                if current_status not in ['truck', 'bus'] and voted_class in ['truck', 'bus']:
+                    track_final_class[track_id] = voted_class
+            
+            # Luôn sử dụng nhãn đã được "khóa" để hiển thị
+            final_type = track_final_class[track_id]
+
+            # 4. Tính vận tốc
+            track_times.setdefault(track_id, {})
+            prev_y = track_times[track_id].get('prev_y', center_y)
+
+            if prev_y < roi_line1 <= center_y and 't1' not in track_times[track_id]:
                 track_times[track_id]['t1'] = frame_id
 
-            if center_y > roi_line2 and 't1' in track_times[track_id] and 't2' not in track_times[track_id]:
+            if prev_y < roi_line2 <= center_y and 't1' in track_times[track_id] and 't2' not in track_times[track_id]:
                 track_times[track_id]['t2'] = frame_id
 
                 if track_id not in counted_ids:
-                    t1 = track_times[track_id]['t1']
-                    t2 = track_times[track_id]['t2']
-                    duration_frames = t2 - t1
+                    duration_sec = (track_times[track_id]['t2'] - track_times[track_id]['t1']) / fps
+                    if 0.3 <= duration_sec <= 10:
+                        speed_kmh = (distance_meters / duration_sec) * 3.6
+                        
+                        vehicle_speeds.append({
+                            'id': track_id, 
+                            'type': final_type, 
+                            'speed': round(speed_kmh, 1)
+                        })
+                        counts[final_type] += 1
+                        counted_ids.add(track_id)
 
-                    if duration_frames > 0:
-                        duration_seconds = duration_frames / fps
-                        speed_m_s = distance_meters / duration_seconds
-                        speed_kmh = speed_m_s * 3.6
-                    else:
-                        speed_kmh = 0
+                        Vehicle.objects.update_or_create(
+                            track_id=track_id,
+                            defaults={'vehicle_type': final_type, 'speed': round(speed_kmh, 1)}
+                        )
 
-                    vehicle_speeds.append({
-                        'type': matched_class,
-                        'speed': round(speed_kmh, 1),
-                        'id': track_id
-                    })
+            track_times[track_id]['prev_y'] = center_y
 
-                    counts[matched_class] += 1
-                    counted_ids.add(track_id)
-
-            color = colors.get(matched_class, (0, 0, 255))
-            label = f'{matched_class} ID:{track_id}'
-
+            # 5. Vẽ đồ họa
+            color = colors.get(final_type, (255, 255, 255))
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
-            cv2.putText(frame, label, (int(x1), int(y1) - 10),
+            cv2.putText(frame, f'{final_type} #{track_id}', (int(x1), int(y1) - 5),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
-        cv2.line(frame, (0, roi_line1), (frame.shape[1], roi_line1), (255, 0, 0), 2)
-        cv2.line(frame, (0, roi_line2), (frame.shape[1], roi_line2), (0, 0, 255), 2)
-
-        cv2.imshow("Giám sát tốc độ", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        # Vẽ vạch đo
+        cv2.line(frame, (0, roi_line1), (FRAME_W, roi_line1), (255, 0, 0), 2)
+        cv2.line(frame, (0, roi_line2), (FRAME_W, roi_line2), (0, 0, 255), 2)
+        
+        cv2.imshow("Giam sat toc do", frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'): break
 
     cap.release()
     cv2.destroyAllWindows()
-
-    return JsonResponse({
-        'counts': counts,
-        'total_vehicles': sum(counts.values()),
-        'vehicles': vehicle_speeds
-    })
+    return JsonResponse({'counts': counts, 'total_vehicles': sum(counts.values()), 'vehicles': vehicle_speeds})
