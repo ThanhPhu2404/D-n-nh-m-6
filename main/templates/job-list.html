@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="utf-8" />
   <title>Đo Tốc Độ Phương Tiện - Hệ Thống Giao Thông Thông Minh</title>
@@ -9,7 +10,8 @@
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+    rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
@@ -25,246 +27,272 @@
 
   <style>
     :root {
-        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --gradient-success: linear-gradient(135deg, #00B98E 0%, #0D6EFD 100%);
+      --gradient-primary: linear-gradient(135deg, #00ADEF 0%, #007bff 100%);
+      --gradient-success: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
     }
 
     .page-header-speed {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%),
-                    url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
-        background-size: cover;
-        padding: 100px 0 60px;
-        position: relative;
+      background: linear-gradient(135deg, rgba(0, 173, 239, 0.9) 0%, rgba(0, 123, 255, 0.9) 100%),
+      url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
+      background-size: cover;
+      padding: 100px 0 60px;
+      position: relative;
     }
 
     .video-player-wrapper {
-        position: relative;
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 0 15px 60px rgba(0, 0, 0, 0.15);
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 5px;
+      position: relative;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      padding: 5px;
     }
 
     .video-player-wrapper video {
-        border-radius: 20px;
-        width: 100%;
-        height: auto;
-        display: block;
+      border-radius: 20px;
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .speed-card {
-        background: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        height: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
     }
 
     .speed-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: var(--gradient-primary);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
     }
 
     .speed-card:hover::before {
-        transform: scaleX(1);
+      transform: scaleX(1);
     }
 
     .speed-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0, 173, 239, 0.2);
     }
 
+    
+    .speed-icon-wrapper.car { background: linear-gradient(135deg, #00ADEF 0%, #007bff 100%); }
+    .speed-icon-wrapper.truck { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .speed-icon-wrapper.bus { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .speed-icon-wrapper.motorbike { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    
+    .count-display.car { color: #00ADEF; background: none; -webkit-text-fill-color: #00adef; }
+    .count-display.truck { color: #38f9d7; background: none; -webkit-text-fill-color: #43e97b; }
+    .count-display.bus { color: #f6ad55; background: none; -webkit-text-fill-color: #fa709a; }
+    .count-display.motorbike { color: #fc8181; background: none; -webkit-text-fill-color: #f5576c; }
+    
     .speed-icon-wrapper {
-        width: 70px;
-        height: 70px;
-        background: var(--gradient-primary);
-        border-radius: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        position: relative;
+      width: 70px;
+      height: 70px;
+      background: var(--gradient-primary);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
     }
 
     .speed-icon-wrapper::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: inherit;
-        border-radius: inherit;
-        opacity: 0.3;
-        animation: pulse-ring 2s infinite;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      border-radius: inherit;
+      opacity: 0.3;
+      animation: pulse-ring 2s infinite;
     }
 
     @keyframes pulse-ring {
-        0%, 100% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.2); opacity: 0; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
     }
 
     .count-display {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .btn-analyze {
-        background: var(--gradient-success);
-        border: none;
-        border-radius: 50px;
-        padding: 18px 45px;
-        font-size: 18px;
-        font-weight: 600;
-        color: white;
-        box-shadow: 0 10px 30px rgba(0, 185, 142, 0.3);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+      background: var(--gradient-success);
+      border: none;
+      border-radius: 50px;
+      padding: 18px 45px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 173, 239, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-analyze::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
     }
 
     .btn-analyze:hover::before {
-        width: 300px;
-        height: 300px;
+      width: 300px;
+      height: 300px;
     }
 
     .btn-analyze:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(0, 185, 142, 0.4);
-        color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 173, 239, 0.4);
+      color: white;
     }
 
     .total-badge {
-        background: var(--gradient-primary);
-        color: white;
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
-        position: relative;
-        overflow: hidden;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 173, 239, 0.3);
+      position: relative;
+      overflow: hidden;
     }
 
     .total-badge::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: rotate 20s linear infinite;
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
     }
 
     @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .speed-table-wrapper {
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
     .speed-table {
-        margin: 0;
+      margin: 0;
     }
 
     .speed-table thead {
-        background: var(--gradient-primary);
-        color: white;
+      background: var(--gradient-primary);
+      color: white;
     }
 
     .speed-table thead th {
-        border: none;
-        padding: 20px;
-        font-weight: 600;
-        font-size: 16px;
+      border: none;
+      padding: 20px;
+      font-weight: 600;
+      font-size: 16px;
     }
 
     .speed-table tbody td {
-        padding: 18px 20px;
-        vertical-align: middle;
-        border-bottom: 1px solid #f0f0f0;
+      padding: 18px 20px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f0f0f0;
     }
 
     .speed-table tbody tr {
-        transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .speed-table tbody tr:hover {
-        background: rgba(102, 126, 234, 0.05);
-        transform: scale(1.01);
+      background: rgba(0, 173, 239, 0.05);
+      transform: scale(1.01);
     }
 
     .speed-badge {
-        background: linear-gradient(135deg, #00B98E 0%, #0D6EFD 100%);
-        color: white;
-        padding: 8px 20px;
-        border-radius: 50px;
-        font-weight: 600;
-        display: inline-block;
-        box-shadow: 0 4px 15px rgba(0, 185, 142, 0.3);
+      background: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0, 173, 239, 0.3);
     }
 
     .vehicle-type-badge {
-        padding: 6px 15px;
-        border-radius: 20px;
-        font-weight: 500;
-        font-size: 14px;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 14px;
     }
 
     .empty-state {
-        padding: 60px 20px;
-        text-align: center;
+      padding: 60px 20px;
+      text-align: center;
     }
 
     .empty-state i {
-        font-size: 4rem;
-        color: #ddd;
-        margin-bottom: 20px;
+      font-size: 4rem;
+      color: #ddd;
+      margin-bottom: 20px;
     }
 
     @keyframes slideInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .animate-in {
-        animation: slideInUp 0.5s ease-out forwards;
+      animation: slideInUp 0.5s ease-out forwards;
     }
   </style>
 </head>
@@ -332,38 +360,38 @@
         <div class="row g-4 mb-5">
           <div class="col-lg-3 col-md-6">
             <div class="speed-card">
-              <div class="speed-icon-wrapper">
+              <div class="speed-icon-wrapper car">
                 <i class="fas fa-car fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-3">Xe Con</h5>
-              <div class="count-display text-center" id="count_car">0</div>
+              <div class="count-display car text-center" id="count_car">0</div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
             <div class="speed-card">
-              <div class="speed-icon-wrapper">
+              <div class="speed-icon-wrapper truck">
                 <i class="fas fa-truck fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-3">Xe Tải</h5>
-              <div class="count-display text-center" id="count_truck">0</div>
+              <div class="count-display truck text-center" id="count_truck">0</div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
             <div class="speed-card">
-              <div class="speed-icon-wrapper">
+              <div class="speed-icon-wrapper bus">
                 <i class="fas fa-bus fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-3">Xe Buýt</h5>
-              <div class="count-display text-center" id="count_bus">0</div>
+              <div class="count-display bus text-center" id="count_bus">0</div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
             <div class="speed-card">
-              <div class="speed-icon-wrapper">
+              <div class="speed-icon-wrapper motorbike">
                 <i class="fas fa-motorcycle fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-3">Xe Máy</h5>
-              <div class="count-display text-center" id="count_motorbike">0</div>
+              <div class="count-display motorbike text-center" id="count_motorbike">0</div>
             </div>
           </div>
         </div>
@@ -474,29 +502,29 @@
         },
         body: JSON.stringify({})
       })
-      .then(response => {
-        if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        // Animate counters
-        animateCounter('count_car', data.counts?.car || 0);
-        animateCounter('count_truck', data.counts?.truck || 0);
-        animateCounter('count_bus', data.counts?.bus || 0);
-        animateCounter('count_motorbike', data.counts?.motorbike || 0);
-        animateCounter('total_vehicles', data.total_vehicles || 0);
+        .then(response => {
+          if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          // Animate counters
+          animateCounter('count_car', data.counts?.car || 0);
+          animateCounter('count_truck', data.counts?.truck || 0);
+          animateCounter('count_bus', data.counts?.bus || 0);
+          animateCounter('count_motorbike', data.counts?.motorbike || 0);
+          animateCounter('total_vehicles', data.total_vehicles || 0);
 
-        // Update table
-        const vehicleTableBody = document.getElementById('vehicle-table-body');
-        vehicleTableBody.innerHTML = '';
+          // Update table
+          const vehicleTableBody = document.getElementById('vehicle-table-body');
+          vehicleTableBody.innerHTML = '';
 
-        if (data.vehicles && data.vehicles.length > 0) {
-          data.vehicles.forEach((vehicle, idx) => {
-            const speed = vehicle.speed !== undefined ? parseFloat(vehicle.speed).toFixed(1) : '-';
-            const vehicleIcon = getVehicleIcon(vehicle.type);
-            const vehicleColor = getVehicleColor(vehicle.type);
-            
-            const row = `
+          if (data.vehicles && data.vehicles.length > 0) {
+            data.vehicles.forEach((vehicle, idx) => {
+              const speed = vehicle.speed !== undefined ? parseFloat(vehicle.speed).toFixed(1) : '-';
+              const vehicleIcon = getVehicleIcon(vehicle.type);
+              const vehicleColor = getVehicleColor(vehicle.type);
+
+              const row = `
               <tr class="animate-in" style="animation-delay: ${idx * 0.05}s;">
                 <td class="fw-bold">${idx + 1}</td>
                 <td>
@@ -507,10 +535,10 @@
                 <td><span class="speed-badge">${speed} km/h</span></td>
               </tr>
             `;
-            vehicleTableBody.insertAdjacentHTML('beforeend', row);
-          });
-        } else {
-          vehicleTableBody.innerHTML = `
+              vehicleTableBody.insertAdjacentHTML('beforeend', row);
+            });
+          } else {
+            vehicleTableBody.innerHTML = `
             <tr>
               <td colspan="3" class="empty-state">
                 <i class="fas fa-inbox d-block"></i>
@@ -518,21 +546,21 @@
               </td>
             </tr>
           `;
-        }
+          }
 
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Phân Tích Hoàn Tất';
-        
-        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Phân Tích Hoàn Tất';
+
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ';
+          }, 3000);
+        })
+        .catch(error => {
+          alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
+          console.error(error);
+          btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ';
-        }, 3000);
-      })
-      .catch(error => {
-        alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
-        console.error(error);
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ';
-      });
+        });
     });
 
     function animateCounter(elementId, endValue) {
@@ -571,17 +599,18 @@
 
     function getVehicleColor(type) {
       const colors = {
-        'car': '#667eea',
-        'truck': '#00B98E',
+        'car': '#00ADEF',
+        'truck': '#43e97b',
         'bus': '#f6ad55',
         'motorbike': '#fc8181',
-        'Xe con': '#667eea',
-        'Xe tải': '#00B98E',
+        'Xe con': '#00ADEF',
+        'Xe tải': '#43e97b',
         'Xe buýt': '#f6ad55',
         'Xe máy': '#fc8181'
       };
-      return colors[type] || '#667eea';
+      return colors[type] || '#00ADEF';
     }
   </script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,13 +22,13 @@
 
     <style>
         :root {
-            --gradient-ocean: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-ocean: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
             --gradient-forest: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
             --gradient-sunset: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
         .page-header-report {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%),
+            background: linear-gradient(135deg, rgba(0, 173, 239, 0.95) 0%, rgba(0, 123, 255, 0.95) 100%),
             url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
             background-size: cover;
             padding: 100px 0 60px;
@@ -59,8 +59,8 @@
 
         .filter-card .form-control:focus,
         .filter-card .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #00ADEF;
+            box-shadow: 0 0 0 3px rgba(0, 173, 239, 0.1);
         }
 
         .btn-filter {
@@ -75,7 +75,7 @@
 
         .btn-filter:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 173, 239, 0.3);
             color: white;
         }
 
@@ -125,8 +125,8 @@
         }
 
         .stat-card.primary .stat-icon {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            color: #667eea;
+            background: linear-gradient(135deg, rgba(0, 173, 239, 0.1) 0%, rgba(0, 123, 255, 0.1) 100%);
+            color: #00ADEF;
         }
 
         .stat-card.success .stat-icon {
@@ -279,9 +279,9 @@
                             </label>
                             <select class="form-select" id="location" name="location">
                                 <option value="" {% if not request.GET.location %}selected{% endif %}>Tất cả</option>
-                                <option value="Quận 1" {% if request.GET.location=="Quận 1" %}selected{% endif %}>Quận 1
+                                <option value="Quận 1" {% if request.GET.location == "Quận 1" %}selected{% endif %}>Quận 1
                                 </option>
-                                <option value="Quận 3" {% if request.GET.location=="Quận 3" %}selected{% endif %}>Quận 3
+                                <option value="Quận 3" {% if request.GET.location == "Quận 3" %}selected{% endif %}>Quận 3
                                 </option>
                                 <option value="Quận 5">Quận 5</option>
                                 <option value="Quận 7">Quận 7</option>
@@ -346,12 +346,12 @@
                     <div class="mb-4">
                         <span class="legend-item">
                             <span class="legend-color"
-                                style="background: linear-gradient(135deg, #667eea, #764ba2);"></span>
+                                style="background: linear-gradient(135deg, #00ADEF, #0D6EFD);"></span>
                             Số lượng phương tiện
                         </span>
                         <span class="legend-item">
                             <span class="legend-color"
-                                style="background: linear-gradient(135deg, #56ab2f, #a8e063);"></span>
+                                style="background: linear-gradient(135deg, #00ADEF, #0D6EFD);"></span>
                             Tốc độ trung bình
                         </span>
                     </div>
@@ -375,7 +375,46 @@
                                 <h4><i class="fas fa-map-marked-alt text-primary me-2"></i>Phân Bố Theo Khu Vực</h4>
                                 <p>Top 5 khu vực có lưu lượng cao nhất</p>
                             </div>
-                            <canvas id="locationChart" style="max-height: 300px;"></canvas>
+                            <canvas id="locationChart" style="max-height: 250px;"></canvas>
+
+                            <div class="mt-4">
+                                <h6 class="fw-bold mb-3"><i class="fas fa-list-ol me-2 text-primary"></i>Chi tiết Top 5
+                                    khu vực:</h6>
+                                <div class="location-list">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Quận 1</span>
+                                            <span class="fw-bold text-primary">850 xe/h</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 95%;"
+                                                aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Quận 3</span>
+                                            <span class="fw-bold" style="color: #007bff;">720 xe/h</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: 80%; background-color: #007bff;" aria-valuenow="80"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Quận 7</span>
+                                            <span class="fw-bold" style="color: #00ADEF;">640 xe/h</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: 70%; background-color: #00ADEF;" aria-valuenow="70"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -439,10 +478,22 @@
                 datasets: [{
                     label: 'Số lượng phương tiện',
                     data: [120, 320, 450, 280, 210, 180, 240, 190, 260, 310],
-                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
-                    borderColor: 'rgba(102, 126, 234, 1)',
+                    backgroundColor: 'rgba(0, 173, 239, 0.8)',
+                    borderColor: 'rgba(0, 173, 239, 1)',
                     borderWidth: 2,
-                    borderRadius: 10
+                    borderRadius: 10,
+                    yAxisID: 'y',
+                }, {
+                    label: 'Tốc độ trung bình (km/h)',
+                    data: [42, 38, 32, 40, 45, 48, 44, 46, 41, 39],
+                    type: 'line',
+                    borderColor: '#0D6EFD',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    yAxisID: 'y1',
                 }]
             },
             options: {
@@ -455,10 +506,30 @@
                 },
                 scales: {
                     y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
                         beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Số lượng xe'
+                        },
                         grid: {
                             color: 'rgba(0, 0, 0, 0.05)'
                         }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Vận tốc (km/h)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
                     },
                     x: {
                         grid: {
@@ -478,8 +549,8 @@
                 datasets: [{
                     data: [45, 35, 15, 5],
                     backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(0, 173, 239, 0.8)',
+                        'rgba(13, 110, 253, 0.8)',
                         'rgba(86, 171, 47, 0.8)',
                         'rgba(245, 87, 108, 0.8)'
                     ],
@@ -507,19 +578,19 @@
         // Location Chart
         const locationCtx = document.getElementById('locationChart').getContext('2d');
         const locationChart = new Chart(locationCtx, {
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
                 labels: ['Quận 1', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 10', 'Thủ Đức', 'Bình Thạnh', 'Tân Bình', 'Phú Nhuận'],
                 datasets: [{
                     label: 'Lưu lượng xe',
                     data: [850, 720, 580, 640, 520, 480, 610, 550, 490],
                     backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(0, 173, 239, 0.8)',
                         'rgba(86, 171, 47, 0.8)',
                         'rgba(245, 87, 108, 0.8)',
                         'rgba(240, 147, 251, 0.8)',
                         'rgba(168, 224, 99, 0.8)',
-                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(0, 173, 239, 0.8)',
                         'rgba(86, 171, 47, 0.8)',
                         'rgba(245, 87, 108, 0.8)',
                         'rgba(240, 147, 251, 0.8)'

@@ -25,12 +25,12 @@
 
   <style>
     :root {
-        --primary-gradient: linear-gradient(135deg, #00B98E 0%, #0D6EFD 100%);
+        --primary-gradient: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
         --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
     .page-header-modern {
-        background: linear-gradient(135deg, rgba(0, 185, 142, 0.9) 0%, rgba(13, 110, 253, 0.9) 100%),
+        background: linear-gradient(135deg, rgba(0, 173, 239, 0.9) 0%, rgba(13, 110, 253, 0.9) 100%),
                     url('{% static "img/anhnenmetro.jpg" %}') center center no-repeat;
         background-size: cover;
         padding: 100px 0 60px;
@@ -80,10 +80,21 @@
 
     .stats-box:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 185, 142, 0.15);
-        border-color: #00B98E;
+        box-shadow: 0 15px 40px rgba(0, 173, 239, 0.15);
+        border-color: #00ADEF;
     }
 
+    
+    .stats-icon.car { background: linear-gradient(135deg, #00ADEF 0%, #007bff 100%); }
+    .stats-icon.truck { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .stats-icon.bus { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .stats-icon.motorbike { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    
+    .stats-text.car { color: #00ADEF !important; }
+    .stats-text.truck { color: #43e97b !important; }
+    .stats-text.bus { color: #fa709a !important; }
+    .stats-text.motorbike { color: #f5576c !important; }
+    
     .stats-icon {
         width: 60px;
         height: 60px;
@@ -103,13 +114,13 @@
         font-size: 18px;
         font-weight: 600;
         color: white;
-        box-shadow: 0 8px 25px rgba(0, 185, 142, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 173, 239, 0.3);
         transition: all 0.3s ease;
     }
 
     .btn-detect:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(0, 185, 142, 0.4);
+        box-shadow: 0 12px 35px rgba(0, 173, 239, 0.4);
         color: white;
     }
 
@@ -146,7 +157,7 @@
     }
 
     .table-modern tbody tr:hover {
-        background: rgba(0, 185, 142, 0.05);
+        background: rgba(0, 173, 239, 0.05);
     }
 
     .total-counter {
@@ -245,38 +256,38 @@
         <div class="row g-4 mb-5">
           <div class="col-md-3">
             <div class="stats-box">
-              <div class="stats-icon">
+              <div class="stats-icon car">
                 <i class="fas fa-car fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-2">Xe Con</h5>
-              <p id="count_car" class="fs-2 fw-bold text-center text-primary mb-0">0</p>
+              <p id="count_car" class="fs-2 fw-bold text-center stats-text car mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-box">
-              <div class="stats-icon">
+              <div class="stats-icon truck">
                 <i class="fas fa-truck fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-2">Xe Tải</h5>
-              <p id="count_truck" class="fs-2 fw-bold text-center text-success mb-0">0</p>
+              <p id="count_truck" class="fs-2 fw-bold text-center stats-text truck mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-box">
-              <div class="stats-icon">
+              <div class="stats-icon bus">
                 <i class="fas fa-bus fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-2">Xe Buýt</h5>
-              <p id="count_bus" class="fs-2 fw-bold text-center text-warning mb-0">0</p>
+              <p id="count_bus" class="fs-2 fw-bold text-center stats-text bus mb-0">0</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-box">
-              <div class="stats-icon">
+              <div class="stats-icon motorbike">
                 <i class="fas fa-motorcycle fa-2x text-white"></i>
               </div>
               <h5 class="text-center mb-2">Xe Máy</h5>
-              <p id="count_motorbike" class="fs-2 fw-bold text-center text-danger mb-0">0</p>
+              <p id="count_motorbike" class="fs-2 fw-bold text-center stats-text motorbike mb-0">0</p>
             </div>
           </div>
         </div>

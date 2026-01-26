@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8" />
     <title>Hệ Thống Giám Sát Giao Thông Thông Minh</title>
@@ -8,36 +9,38 @@
     <meta content="Hệ thống giám sát giao thông thông minh, đếm xe, đo tốc độ" name="keywords" />
     <meta content="Giám sát giao thông thông minh với AI" name="description" />
     <link href="{% static 'img/favicon.ico' %}" rel="icon" />
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Inter:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Inter:wght@600;700;800&display=swap"
+        rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    
+
     <style>
         :root {
-            --primary-color: #00B98E;
+            --primary-color: #00ADEF;
             --secondary-color: #0D6EFD;
             --dark-color: #1F2937;
             --light-color: #F3F4F6;
         }
-        
+
         .hero-carousel-item {
             background-size: cover;
             background-position: center;
             min-height: 650px;
             position: relative;
         }
-        
+
         .hero-overlay {
-            background: linear-gradient(135deg, rgba(0, 185, 142, 0.85) 0%, rgba(13, 110, 253, 0.85) 100%);
+            background: linear-gradient(135deg, rgba(0, 173, 239, 0.85) 0%, rgba(13, 110, 253, 0.85) 100%);
         }
-        
+
         .feature-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
@@ -47,12 +50,12 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             height: 100%;
         }
-        
+
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 185, 142, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 173, 239, 0.2);
         }
-        
+
         .feature-icon {
             width: 80px;
             height: 80px;
@@ -63,11 +66,11 @@
             justify-content: center;
             transition: transform 0.3s ease;
         }
-        
+
         .feature-card:hover .feature-icon {
             transform: rotate(5deg) scale(1.1);
         }
-        
+
         .btn-gradient {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
@@ -76,29 +79,29 @@
             font-weight: 600;
             color: white;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 185, 142, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 173, 239, 0.3);
         }
-        
+
         .btn-gradient:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 185, 142, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 173, 239, 0.4);
             color: white;
         }
-        
+
         .about-image-grid {
             position: relative;
         }
-        
+
         .about-image-grid img {
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-        
+
         .about-image-grid img:hover {
             transform: scale(1.05);
         }
-        
+
         .search-box {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -106,20 +109,20 @@
             padding: 30px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
-        
+
         .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
             border-radius: 20px;
             padding: 30px;
             color: white;
             text-align: center;
             transition: transform 0.3s ease;
         }
-        
+
         .stats-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .testimonial-card {
             background: white;
             border-radius: 20px;
@@ -127,7 +130,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
-        
+
         .testimonial-card:hover {
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
         }
@@ -137,7 +140,8 @@
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
                 <span class="sr-only">Đang tải...</span>
             </div>
@@ -148,7 +152,8 @@
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
             </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -178,12 +183,15 @@
                                         Hệ Thống Giám Sát Giao Thông <span class="text-warning">Thông Minh</span>
                                     </h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">
-                                        Theo dõi số lượng phương tiện và đo vận tốc theo thời gian thực, giúp quản lý giao thông hiệu quả với công nghệ AI tiên tiến.
+                                        Theo dõi số lượng phương tiện và đo vận tốc theo thời gian thực, giúp quản lý
+                                        giao thông hiệu quả với công nghệ AI tiên tiến.
                                     </p>
-                                    <a href="category.html" class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
+                                    <a href="category.html"
+                                        class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
                                         <i class="fas fa-chart-bar me-2"></i>Xem Báo Cáo
                                     </a>
-                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight" style="border-radius: 50px;">
+                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight"
+                                        style="border-radius: 50px;">
                                         <i class="fas fa-chart-line me-2"></i>Thống Kê Giao Thông
                                     </a>
                                 </div>
@@ -202,12 +210,15 @@
                                         Đo Vận Tốc & Phân Tích <span class="text-warning">Lưu Lượng Xe</span>
                                     </h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">
-                                        Cung cấp dữ liệu chính xác về tốc độ trung bình và các thời điểm cao điểm giao thông với độ chính xác cao.
+                                        Cung cấp dữ liệu chính xác về tốc độ trung bình và các thời điểm cao điểm giao
+                                        thông với độ chính xác cao.
                                     </p>
-                                    <a href="job-list.html" class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
+                                    <a href="job-list.html"
+                                        class="btn btn-gradient py-md-3 px-md-5 me-3 animated slideInLeft">
                                         <i class="fas fa-tachometer-alt me-2"></i>Đo Tốc Độ Phương Tiện
                                     </a>
-                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight" style="border-radius: 50px;">
+                                    <a href="contact.html" class="btn btn-light py-md-3 px-md-5 animated slideInRight"
+                                        style="border-radius: 50px;">
                                         <i class="fas fa-analytics me-2"></i>Xem Thống Kê
                                     </a>
                                 </div>
@@ -226,7 +237,8 @@
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control border-0 py-3" placeholder="Tìm kiếm theo khu vực..." style="border-radius: 10px;" />
+                                    <input type="text" class="form-control border-0 py-3"
+                                        placeholder="Tìm kiếm theo khu vực..." style="border-radius: 10px;" />
                                 </div>
                                 <div class="col-md-4">
                                     <select class="form-select border-0 py-3" style="border-radius: 10px;">
@@ -328,10 +340,12 @@
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                         <div class="row g-0 about-bg rounded overflow-hidden about-image-grid">
                             <div class="col-6 text-start">
-                                <img class="img-fluid w-100" src="{% static 'img/hình1.jpg' %}" style="margin-top: 15%"/>
+                                <img class="img-fluid w-100" src="{% static 'img/hình1.jpg' %}"
+                                    style="margin-top: 15%" />
                             </div>
                             <div class="col-6 text-start">
-                                <img class="img-fluid" src="{% static 'img/hinhanh2.jpg' %}" style="width: 85%; margin-top: 15%" />
+                                <img class="img-fluid" src="{% static 'img/hinhanh2.jpg' %}"
+                                    style="width: 85%; margin-top: 15%" />
                             </div>
                             <div class="col-6 text-end">
                                 <img class="img-fluid" src="{% static 'img/hinhanh3.jpg' %}" style="width: 85%" />
@@ -342,19 +356,25 @@
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="mb-4 display-6">Giải pháp giám sát giao thông <span class="text-primary">thông minh</span></h1>
+                        <h1 class="mb-4 display-6">Giải pháp giám sát giao thông <span class="text-primary">thông
+                                minh</span></h1>
                         <p class="mb-4 fs-5">
-                            Hệ thống giám sát giao thông của chúng tôi sử dụng công nghệ camera hiện đại kết hợp với bản đồ số để giúp quản lý, theo dõi và phân tích tình hình giao thông tại các khu vực trọng điểm trong thành phố Hồ Chí Minh.
+                            Hệ thống giám sát giao thông của chúng tôi sử dụng công nghệ camera hiện đại kết hợp với bản
+                            đồ số để giúp quản lý, theo dõi và phân tích tình hình giao thông tại các khu vực trọng điểm
+                            trong thành phố Hồ Chí Minh.
                         </p>
                         <div class="mb-3">
                             <p class="fs-6">
-                                <i class="fa fa-check text-primary me-3"></i>Hiển thị trực quan vị trí camera trên bản đồ tương tác
+                                <i class="fa fa-check text-primary me-3"></i>Hiển thị trực quan vị trí camera trên bản
+                                đồ tương tác
                             </p>
                             <p class="fs-6">
-                                <i class="fa fa-check text-primary me-3"></i>Phân tích dữ liệu lưu lượng phương tiện theo thời gian thực
+                                <i class="fa fa-check text-primary me-3"></i>Phân tích dữ liệu lưu lượng phương tiện
+                                theo thời gian thực
                             </p>
                             <p class="fs-6">
-                                <i class="fa fa-check text-primary me-3"></i>Hỗ trợ cơ quan chức năng quản lý giao thông hiệu quả
+                                <i class="fa fa-check text-primary me-3"></i>Hỗ trợ cơ quan chức năng quản lý giao thông
+                                hiệu quả
                             </p>
                             <p class="fs-6">
                                 <i class="fa fa-check text-primary me-3"></i>Công nghệ AI và Machine Learning tiên tiến
@@ -405,10 +425,12 @@
                     <div class="testimonial-card">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <p class="fs-6">
-                            Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả hơn rất nhiều.
+                            Hệ thống giám sát rất chính xác và dễ sử dụng. Giúp chúng tôi quản lý giao thông hiệu quả
+                            hơn rất nhiều.
                         </p>
                         <div class="d-flex align-items-center mt-4">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-1.jpg' %}" style="width: 50px; height: 50px" />
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{% static 'img/testimonial-1.jpg' %}" style="width: 50px; height: 50px" />
                             <div class="ps-3">
                                 <h6 class="mb-1">Nguyễn Văn A</h6>
                                 <small class="text-muted">Giám đốc Giao thông</small>
@@ -421,7 +443,8 @@
                             Công nghệ AI rất ấn tượng, dữ liệu phân tích chi tiết và báo cáo trực quan, dễ hiểu.
                         </p>
                         <div class="d-flex align-items-center mt-4">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-2.jpg' %}" style="width: 50px; height: 50px" />
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{% static 'img/testimonial-2.jpg' %}" style="width: 50px; height: 50px" />
                             <div class="ps-3">
                                 <h6 class="mb-1">Trần Thị B</h6>
                                 <small class="text-muted">Chuyên viên Phân tích</small>
@@ -434,7 +457,8 @@
                             Bản đồ camera rất trực quan, giúp chúng tôi dễ dàng theo dõi toàn bộ hệ thống.
                         </p>
                         <div class="d-flex align-items-center mt-4">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-3.jpg' %}" style="width: 50px; height: 50px" />
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{% static 'img/testimonial-3.jpg' %}" style="width: 50px; height: 50px" />
                             <div class="ps-3">
                                 <h6 class="mb-1">Lê Văn C</h6>
                                 <small class="text-muted">Kỹ sư Hệ thống</small>
@@ -447,7 +471,8 @@
                             Tốc độ xử lý nhanh, báo cáo real-time giúp ra quyết định kịp thời trong quản lý giao thông.
                         </p>
                         <div class="d-flex align-items-center mt-4">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-4.jpg' %}" style="width: 50px; height: 50px" />
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{% static 'img/testimonial-4.jpg' %}" style="width: 50px; height: 50px" />
                             <div class="ps-3">
                                 <h6 class="mb-1">Phạm Thị D</h6>
                                 <small class="text-muted">Quản lý Dự án</small>
@@ -490,8 +515,10 @@
                         <h5 class="text-white mb-4">Nhận Tin Tức</h5>
                         <p>Đăng ký để nhận thông tin cập nhật về hệ thống.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px">
-                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Email của bạn" style="border-radius: 50px;" />
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" style="border-radius: 50px;">
+                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Email của bạn" style="border-radius: 50px;" />
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+                                style="border-radius: 50px;">
                                 Đăng Ký
                             </button>
                         </div>
@@ -531,4 +558,5 @@
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
 </body>
+
 </html>
