@@ -209,7 +209,7 @@ def detect_vehicles_speed_view(request):
         return JsonResponse({'error': 'Phương thức không hợp lệ'}, status=400)
 
     video_path = os.path.join(
-        settings.BASE_DIR, 'main', 'static', 'img', 'videotransport.mp4'
+        settings.BASE_DIR, 'main', 'static', 'img', 'videotransport1.mp4'
     )
 
     if not os.path.exists(video_path):
