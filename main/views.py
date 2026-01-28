@@ -10,6 +10,7 @@ from django.views.decorators.gzip import gzip_page
 from ultralytics import YOLO
 from .models import Node, Edge, Vehicle
 from .services import dijkstra
+from django.core.files.storage import FileSystemStorage
 
 
 # ====== VIEW TRANG ======
@@ -205,6 +206,9 @@ def detect_vehicles_view(request):
 
 @csrf_exempt
 def detect_vehicles_speed_view(request):
+    """
+    Phân tích video mặc định (videotransport1.mp4)
+    """
     if request.method != 'POST':
         return JsonResponse({'error': 'Phương thức không hợp lệ'}, status=400)
 
@@ -215,6 +219,54 @@ def detect_vehicles_speed_view(request):
     if not os.path.exists(video_path):
         return JsonResponse({'error': 'Không tìm thấy video'}, status=404)
 
+    return process_video_speed(video_path)
+
+
+@csrf_exempt
+def detect_vehicles_speed_upload_view(request):
+    """
+    Phân tích video do người dùng upload
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Phương thức không hợp lệ'}, status=400)
+
+    # Kiểm tra có file upload không
+    if 'video' not in request.FILES:
+        return JsonResponse({'error': 'Vui lòng chọn video để upload'}, status=400)
+
+    uploaded_file = request.FILES['video']
+    
+    # Kiểm tra định dạng file
+    allowed_extensions = ['.mp4', '.avi', '.mov', '.mkv']
+    file_ext = os.path.splitext(uploaded_file.name)[1].lower()
+    
+    if file_ext not in allowed_extensions:
+        return JsonResponse({
+            'error': f'Định dạng file không được hỗ trợ. Chỉ chấp nhận: {", ".join(allowed_extensions)}'
+        }, status=400)
+
+    # Lưu file vào thư mục uploads
+    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'uploads'))
+    filename = fs.save(uploaded_file.name, uploaded_file)
+    video_path = fs.path(filename)
+
+    try:
+        # Xử lý video
+        result = process_video_speed(video_path)
+        return result
+    finally:
+        # Xóa file sau khi xử lý xong (tùy chọn)
+        if os.path.exists(video_path):
+            try:
+                os.remove(video_path)
+            except:
+                pass
+
+
+def process_video_speed(video_path):
+    """
+    Hàm xử lý video để phát hiện và đo tốc độ phương tiện
+    """
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS) or 30
 
@@ -327,7 +379,7 @@ def detect_vehicles_speed_view(request):
                 counts[stable_class] += 1
                 state['done'] = True
 
-            # ===== VẼ (DÙNG CLASS ỔN ĐỊNH) =====
+            # ===== Vẽ (DÙNG CLASS ỔN ĐỊNH) =====
             color = colors.get(stable_class, (0, 0, 255))
             label = f'{stable_class} ID:{track_id}'
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
@@ -336,7 +388,7 @@ def detect_vehicles_speed_view(request):
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2
             )
 
-        # ===== VẼ ROI =====
+        # ===== Vẽ ROI =====
         cv2.line(frame, (0, roi_line1), (frame.shape[1], roi_line1), (255, 0, 0), 2)
         cv2.line(frame, (0, roi_line2), (frame.shape[1], roi_line2), (0, 0, 255), 2)
 

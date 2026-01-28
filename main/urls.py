@@ -26,4 +26,10 @@ urlpatterns = [
 
     # API tính đường ngắn nhất (GET request)
     path('shortest-path/', views.shortest_path, name='shortest_path'),
+
+    # ============================================
+    # 🎬 THÊM DÒNG NÀY - API UPLOAD VIDEO
+    # ============================================
+    path('api/vehicle-speed-upload/', views.detect_vehicles_speed_upload_view, name='vehicle_speed_upload_api'),
+    # ============================================
 ]

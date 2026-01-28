@@ -55,6 +55,83 @@
       display: block;
     }
 
+    /* Upload Section Styles */
+    .upload-section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .upload-area {
+      border: 3px dashed #00ADEF;
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0, 173, 239, 0.05) 0%, rgba(0, 123, 255, 0.05) 100%);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .upload-area:hover {
+      border-color: #007bff;
+      background: linear-gradient(135deg, rgba(0, 173, 239, 0.1) 0%, rgba(0, 123, 255, 0.1) 100%);
+      transform: translateY(-2px);
+    }
+
+    .upload-area.dragover {
+      border-color: #28a745;
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+    }
+
+    .upload-icon {
+      font-size: 4rem;
+      color: #00ADEF;
+      margin-bottom: 20px;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-name-display {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .file-name-display.show {
+      display: block;
+    }
+
+    .btn-upload {
+      background: var(--gradient-success);
+      border: none;
+      border-radius: 50px;
+      padding: 15px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(0, 173, 239, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-upload:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(0, 173, 239, 0.4);
+      color: white;
+    }
+
+    .btn-upload:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .speed-card {
       background: white;
       border-radius: 20px;
@@ -246,73 +323,83 @@
     .speed-table-wrapper {
       background: white;
       border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
     .speed-table {
       margin: 0;
-    }
-
-    .speed-table thead {
-      background: var(--gradient-primary);
-      color: white;
+      border-collapse: separate;
+      border-spacing: 0 10px;
     }
 
     .speed-table thead th {
-      border: none;
-      padding: 20px;
+      background: var(--gradient-primary);
+      color: white;
       font-weight: 600;
-      font-size: 16px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 18px 20px;
+      border: none;
     }
 
-    .speed-table tbody td {
-      padding: 18px 20px;
-      vertical-align: middle;
-      border-bottom: 1px solid #f0f0f0;
+    .speed-table thead th:first-child {
+      border-radius: 15px 0 0 15px;
+    }
+
+    .speed-table thead th:last-child {
+      border-radius: 0 15px 15px 0;
     }
 
     .speed-table tbody tr {
-      transition: all 0.2s ease;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
     }
 
     .speed-table tbody tr:hover {
-      background: rgba(0, 173, 239, 0.05);
-      transform: scale(1.01);
+      background: #e3f2fd;
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(0, 173, 239, 0.2);
     }
 
-    .speed-badge {
-      background: linear-gradient(135deg, #00ADEF 0%, #0D6EFD 100%);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-weight: 600;
-      display: inline-block;
-      box-shadow: 0 4px 15px rgba(0, 173, 239, 0.3);
+    .speed-table tbody td {
+      padding: 20px;
+      border: none;
+      vertical-align: middle;
+    }
+
+    .speed-table tbody td:first-child {
+      border-radius: 15px 0 0 15px;
+    }
+
+    .speed-table tbody td:last-child {
+      border-radius: 0 15px 15px 0;
     }
 
     .vehicle-type-badge {
-      padding: 6px 15px;
-      border-radius: 20px;
-      font-weight: 500;
-      font-size: 14px;
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
 
-    .empty-state {
-      padding: 60px 20px;
-      text-align: center;
+    .speed-badge {
+      display: inline-block;
+      padding: 10px 25px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 1.1rem;
     }
 
-    .empty-state i {
-      font-size: 4rem;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
-
-    @keyframes slideInUp {
+    @keyframes animate-in {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
       }
 
       to {
@@ -322,7 +409,19 @@
     }
 
     .animate-in {
-      animation: slideInUp 0.5s ease-out forwards;
+      animation: animate-in 0.5s ease forwards;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px !important;
+      background: transparent !important;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: #dee2e6;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -331,63 +430,85 @@
   <div class="container-xxl bg-white p-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-      <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-        <h1 class="m-0 text-primary">
-          <i class="bi bi-camera-video me-2"></i><span class="logo-text">TrafficVision</span>
-        </h1>
+      <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+        <h1 class="m-0" style="color: #00ADEF;"><i class="bi bi-camera-video me-2"></i>TrafficVision</h1>
       </a>
       <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-          <a href="index.html" class="nav-item nav-link">Trang chủ</a>
-          <a href="job-list.html" class="nav-item nav-link active">Phát hiện & Đo tốc độ phương tiện</a>
-          <a href="category.html" class="nav-item nav-link">Báo Cáo</a>
-          <a href="contact.html" class="nav-item nav-link">Thống kê giao thông</a>
+          <a href="{% url 'home' %}" class="nav-item nav-link">Trang chủ</a>
+          <a href="{% url 'about' %}" class="nav-item nav-link">Giới thiệu</a>
+          <a href="{% url 'job_list' %}" class="nav-item nav-link active">Phân tích</a>
+          <a href="{% url 'contact' %}" class="nav-item nav-link">Liên hệ</a>
         </div>
-        <a href="job-detail.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
-          Bản Đồ Camera<i class="fa fa-arrow-right ms-3"></i>
-        </a>
       </div>
     </nav>
 
     <!-- Header -->
-    <div class="page-header-speed">
-      <div class="container my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown fw-bold">
-          <i class="fas fa-tachometer-alt me-3"></i>Phát Hiện & Đo Tốc Độ Phương Tiện
+    <div class="container-fluid page-header-speed mb-5 py-5">
+      <div class="container">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">
+          <i class="fas fa-tachometer-alt me-3"></i>Phân Tích Tốc Độ Phương Tiện
         </h1>
-        <p class="text-white fs-5 mb-0">Phân tích vận tốc và phân loại phương tiện thông minh</p>
+        <p class="text-white fs-5">Phát hiện, đếm số lượng và đo tốc độ các phương tiện giao thông</p>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="container-xxl py-5">
       <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="display-6 fw-bold mb-3">Phát Hiện & Đo Vận Tốc Thời Gian Thực</h2>
-          <p class="text-muted fs-5">Công nghệ AI tiên tiến cho độ chính xác cao</p>
+        
+        <!-- Upload Section -->
+        <div class="upload-section">
+          <h3 class="text-center mb-4">
+            <i class="fas fa-cloud-upload-alt text-primary me-2"></i>
+            Upload Video Để Phân Tích
+          </h3>
+          
+          <form id="upload-form" enctype="multipart/form-data">
+            <div class="upload-area" id="upload-area">
+              <i class="fas fa-cloud-upload-alt upload-icon"></i>
+              <h5>Kéo thả video vào đây hoặc click để chọn file</h5>
+              <p class="text-muted mb-0">Hỗ trợ: MP4, AVI, MOV, MKV (tối đa 500MB)</p>
+              <input type="file" id="video-input" class="file-input" accept=".mp4,.avi,.mov,.mkv">
+            </div>
+            
+            <div class="file-name-display" id="file-display">
+              <i class="fas fa-file-video text-primary me-2"></i>
+              <span id="file-name"></span>
+              <button type="button" class="btn btn-sm btn-danger float-end" id="remove-file">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <div class="text-center">
+              <button type="button" class="btn btn-upload" id="btn-upload-analyze" disabled>
+                <i class="fas fa-chart-line me-2"></i>Phân Tích Video Upload
+              </button>
+            </div>
+          </form>
+          
+          <div class="text-center mt-4">
+            <p class="text-muted">hoặc</p>
+            <button class="btn btn-analyze" id="btn-detect">
+              <i class="fas fa-chart-line me-2"></i>Phân Tích Video Mẫu
+            </button>
+          </div>
         </div>
 
-        <!-- Video -->
-        <div class="text-center mb-5">
-          <div class="video-player-wrapper mx-auto" style="max-width: 900px;">
-            <video id="traffic-video" controls muted>
-              <source src="{% static 'img/videotransport1.mp4' %}" type="video/mp4" />
+        <!-- Video Player -->
+        <div class="mb-5">
+          <div class="video-player-wrapper">
+            <video id="video-player" controls>
+              <source src="{% static 'img/videotransport1.mp4' %}" type="video/mp4">
               Trình duyệt của bạn không hỗ trợ video.
             </video>
           </div>
         </div>
 
-        <!-- Nút phân tích -->
-        <div class="text-center mb-5">
-          <button id="btn-detect" class="btn btn-analyze">
-            <i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ
-          </button>
-        </div>
-
-        <!-- Thống kê -->
+        <!-- Statistics Cards -->
         <div class="row g-4 mb-5">
           <div class="col-lg-3 col-md-6">
             <div class="speed-card">
@@ -518,12 +639,125 @@
   <script src="{% static 'js/main.js' %}"></script>
 
   <script>
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let selectedFile = null;
+
+    // Upload area interactions
+    const uploadArea = document.getElementById('upload-area');
+    const videoInput = document.getElementById('video-input');
+    const fileDisplay = document.getElementById('file-display');
+    const fileName = document.getElementById('file-name');
+    const btnUploadAnalyze = document.getElementById('btn-upload-analyze');
+    const removeFileBtn = document.getElementById('remove-file');
+
+    // Click to upload
+    uploadArea.addEventListener('click', () => {
+      videoInput.click();
+    });
+
+    // File selection
+    videoInput.addEventListener('change', (e) => {
+      handleFileSelect(e.target.files[0]);
+    });
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      handleFileSelect(file);
+    });
+
+    // Remove file
+    removeFileBtn.addEventListener('click', () => {
+      selectedFile = null;
+      videoInput.value = '';
+      fileDisplay.classList.remove('show');
+      btnUploadAnalyze.disabled = true;
+    });
+
+    function handleFileSelect(file) {
+      if (!file) return;
+
+      // Check file type
+      const allowedTypes = ['video/mp4', 'video/avi', 'video/x-msvideo', 'video/quicktime', 'video/x-matroska'];
+      if (!allowedTypes.includes(file.type)) {
+        alert('❌ Định dạng file không được hỗ trợ. Vui lòng chọn file MP4, AVI, MOV hoặc MKV.');
+        return;
+      }
+
+      // Check file size (500MB)
+      const maxSize = 500 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert('❌ File quá lớn. Vui lòng chọn file nhỏ hơn 500MB.');
+        return;
+      }
+
+      selectedFile = file;
+      fileName.textContent = file.name;
+      fileDisplay.classList.add('show');
+      btnUploadAnalyze.disabled = false;
+    }
+
+    // Upload and analyze
+    btnUploadAnalyze.addEventListener('click', () => {
+      if (!selectedFile) {
+        alert('⚠️ Vui lòng chọn video trước!');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('video', selectedFile);
+
+      btnUploadAnalyze.disabled = true;
+      btnUploadAnalyze.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang Upload & Phân Tích...';
+
+      fetch("{% url 'vehicle_speed_upload_api' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+        body: formData
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.error || `Lỗi máy chủ: ${response.status}`);
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          updateResults(data);
+          btnUploadAnalyze.disabled = false;
+          btnUploadAnalyze.innerHTML = '<i class="fas fa-check-circle me-2"></i>Phân Tích Hoàn Tất';
+
+          setTimeout(() => {
+            btnUploadAnalyze.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Video Upload';
+          }, 3000);
+        })
+        .catch(error => {
+          alert(`❌ ${error.message}`);
+          console.error(error);
+          btnUploadAnalyze.disabled = false;
+          btnUploadAnalyze.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Video Upload';
+        });
+    });
+
+    // Analyze sample video
     document.getElementById('btn-detect').addEventListener('click', () => {
       const btn = document.getElementById('btn-detect');
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang Phân Tích...';
-
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       fetch("{% url 'vehicle_speed_api' %}", {
         method: 'POST',
@@ -538,61 +772,64 @@
           return response.json();
         })
         .then(data => {
-          // Animate counters
-          animateCounter('count_car', data.counts?.car || 0);
-          animateCounter('count_truck', data.counts?.truck || 0);
-          animateCounter('count_bus', data.counts?.bus || 0);
-          animateCounter('count_motorbike', data.counts?.motorbike || 0);
-          animateCounter('total_vehicles', data.total_vehicles || 0);
-
-          // Update table
-          const vehicleTableBody = document.getElementById('vehicle-table-body');
-          vehicleTableBody.innerHTML = '';
-
-          if (data.vehicles && data.vehicles.length > 0) {
-            data.vehicles.forEach((vehicle, idx) => {
-              const speed = vehicle.speed !== undefined ? parseFloat(vehicle.speed).toFixed(1) : '-';
-              const vehicleIcon = getVehicleIcon(vehicle.type);
-              const vehicleColor = getVehicleColor(vehicle.type);
-
-              const row = `
-              <tr class="animate-in" style="animation-delay: ${idx * 0.05}s;">
-                <td class="fw-bold">${idx + 1}</td>
-                <td>
-                  <span class="vehicle-type-badge" style="background: ${vehicleColor}20; color: ${vehicleColor};">
-                    <i class="fas fa-${vehicleIcon} me-2"></i>${vehicle.type}
-                  </span>
-                </td>
-                <td><span class="speed-badge">${speed} km/h</span></td>
-              </tr>
-            `;
-              vehicleTableBody.insertAdjacentHTML('beforeend', row);
-            });
-          } else {
-            vehicleTableBody.innerHTML = `
-            <tr>
-              <td colspan="3" class="empty-state">
-                <i class="fas fa-inbox d-block"></i>
-                <p class="text-muted mb-0">Chưa có dữ liệu tốc độ phương tiện</p>
-              </td>
-            </tr>
-          `;
-          }
-
+          updateResults(data);
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Phân Tích Hoàn Tất';
 
           setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ';
+            btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Video Mẫu';
           }, 3000);
         })
         .catch(error => {
           alert("❌ Đã xảy ra lỗi khi kết nối đến máy chủ.");
           console.error(error);
           btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Tốc Độ';
+          btn.innerHTML = '<i class="fas fa-chart-line me-2"></i>Phân Tích Video Mẫu';
         });
     });
+
+    function updateResults(data) {
+      // Animate counters
+      animateCounter('count_car', data.counts?.car || 0);
+      animateCounter('count_truck', data.counts?.truck || 0);
+      animateCounter('count_bus', data.counts?.bus || 0);
+      animateCounter('count_motorbike', data.counts?.motorbike || 0);
+      animateCounter('total_vehicles', data.total_vehicles || 0);
+
+      // Update table
+      const vehicleTableBody = document.getElementById('vehicle-table-body');
+      vehicleTableBody.innerHTML = '';
+
+      if (data.vehicles && data.vehicles.length > 0) {
+        data.vehicles.forEach((vehicle, idx) => {
+          const speed = vehicle.speed !== undefined ? parseFloat(vehicle.speed).toFixed(1) : '-';
+          const vehicleIcon = getVehicleIcon(vehicle.type);
+          const vehicleColor = getVehicleColor(vehicle.type);
+
+          const row = `
+            <tr class="animate-in" style="animation-delay: ${idx * 0.05}s;">
+              <td class="fw-bold">${idx + 1}</td>
+              <td>
+                <span class="vehicle-type-badge" style="background: ${vehicleColor}20; color: ${vehicleColor};">
+                  <i class="fas fa-${vehicleIcon} me-2"></i>${vehicle.type}
+                </span>
+              </td>
+              <td><span class="speed-badge">${speed} km/h</span></td>
+            </tr>
+          `;
+          vehicleTableBody.insertAdjacentHTML('beforeend', row);
+        });
+      } else {
+        vehicleTableBody.innerHTML = `
+          <tr>
+            <td colspan="3" class="empty-state">
+              <i class="fas fa-inbox d-block"></i>
+              <p class="text-muted mb-0">Chưa có dữ liệu tốc độ phương tiện</p>
+            </td>
+          </tr>
+        `;
+      }
+    }
 
     function animateCounter(elementId, endValue) {
       const element = document.getElementById(elementId);
