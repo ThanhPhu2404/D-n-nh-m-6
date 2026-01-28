@@ -31,5 +31,10 @@ urlpatterns = [
     # 🎬 THÊM DÒNG NÀY - API UPLOAD VIDEO
     # ============================================
     path('api/vehicle-speed-upload/', views.detect_vehicles_speed_upload_view, name='vehicle_speed_upload_api'),
-    # ============================================
+    
+    # # ====== VIDEO STREAMING ======
+    # path('api/video-stream/', views.video_stream_view, name='video_stream'),
+    # path('api/processing-results/', views.get_processing_results, name='processing_results'),
+    # path('api/stop-processing/', views.stop_processing, name='stop_processing'),
+    # # ============================================
 ]
