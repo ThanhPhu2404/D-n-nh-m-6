@@ -12,6 +12,9 @@ from .models import Node, Edge, Vehicle
 from .services import dijkstra
 from django.core.files.storage import FileSystemStorage
 
+# ===== DISPLAY CONFIG (FIX ZOOM OPENCV) =====
+DISPLAY_WIDTH = 1280
+DISPLAY_HEIGHT = 720
 
 # ====== VIEW TRANG ======
 def contact_view(request):
@@ -105,11 +108,16 @@ def detect_vehicles_view(request):
         return JsonResponse({'error': 'Phương thức không hợp lệ'}, status=400)
 
     video_path = os.path.join(settings.BASE_DIR, 'main', 'static', 'img', 'road.mp4')
-
     if not os.path.exists(video_path):
         return JsonResponse({'error': 'Không tìm thấy video'}, status=404)
 
     cap = cv2.VideoCapture(video_path)
+
+    WINDOW_NAME = "Giam sat giao thong"
+
+    # 🔥 FIX ZOOM – BẮT BUỘC
+    cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(WINDOW_NAME, DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
     counts = {'car': 0, 'truck': 0, 'bus': 0, 'motorbike': 0}
     colors = {
@@ -120,19 +128,17 @@ def detect_vehicles_view(request):
     }
 
     counted_ids = set()
-    frame_count = 0
 
     while True:
         ret, frame = cap.read()
         if not ret:
             break
 
-        frame_count += 1
+        # ✅ RESIZE FRAME
+        frame = cv2.resize(frame, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
 
         results = model(frame)[0]
-
-        detections = []
-        classes = []
+        detections, classes = [], []
 
         for box in results.boxes:
             cls_id = int(box.cls[0])
@@ -147,61 +153,44 @@ def detect_vehicles_view(request):
         tracks = tracker.update(dets_np)
 
         for track in tracks:
-            x1, y1, x2, y2, track_id = track
-            track_id = int(track_id)
+            x1, y1, x2, y2, track_id = map(int, track)
 
-            matched_class = None
-            max_iou = 0
+            matched_class, max_iou = None, 0
             for i, det in enumerate(detections):
                 iou = bbox_iou(track[:4], det[:4])
                 if iou > max_iou:
                     max_iou = iou
                     matched_class = classes[i]
 
-            if matched_class and track_id not in counted_ids and matched_class in counts:
+            if matched_class and track_id not in counted_ids:
                 counts[matched_class] += 1
                 counted_ids.add(track_id)
 
-                Vehicle.objects.get_or_create(
-                    track_id=track_id,
-                    defaults={
-                        'license_plate': None,
-                        'vehicle_type': matched_class,
-                        'speed': None
-                    }
-                )
-
-            # Vẽ khung và nhãn
             color = colors.get(matched_class, (0, 0, 255))
-            label = f'{matched_class} ID:{track_id}'
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+            cv2.putText(
+                frame,
+                f'{matched_class} ID:{track_id}',
+                (x1, y1 - 8),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.6,
+                color,
+                2
+            )
 
-            # ✅ Điều chỉnh kích thước khung bao cho phù hợp
-            box_w = x2 - x1
-            box_h = y2 - y1
-            shrink_factor = 0.1  # Co lại 10%
-            x1 += int(box_w * shrink_factor)
-            x2 -= int(box_w * shrink_factor)
-            y1 += int(box_h * shrink_factor)
-            y2 -= int(box_h * shrink_factor)
+        # ❌ KHÔNG DÙNG STRING TRỰC TIẾP
+        cv2.imshow(WINDOW_NAME, frame)
 
-            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
-            cv2.putText(frame, label, (int(x1), int(y1) - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-
-        # Hiển thị khung hình
-        cv2.imshow("Giám sát giao thông", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
     cap.release()
     cv2.destroyAllWindows()
 
-    response_data = {
+    return JsonResponse({
         'counts': counts,
         'total_vehicles': sum(counts.values())
-    }
-
-    return JsonResponse(response_data)
+    })
 
 
 @csrf_exempt
@@ -264,13 +253,15 @@ def detect_vehicles_speed_upload_view(request):
 
 
 def process_video_speed(video_path):
-    """
-    Hàm xử lý video để phát hiện và đo tốc độ phương tiện
-    """
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS) or 30
 
-    # ===== CẤU HÌNH =====
+    WINDOW_NAME = "Giam sat toc do"
+
+    # 🔥 FIX ZOOM – CỬA SỔ
+    cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(WINDOW_NAME, DISPLAY_WIDTH, DISPLAY_HEIGHT)
+
     roi_line1 = 350
     roi_line2 = 550
     distance_meters = 20
@@ -281,12 +272,11 @@ def process_video_speed(video_path):
         'bus': (0, 255, 255),
         'motorbike': (0, 0, 255),
     }
-    counts = {k: 0 for k in colors.keys()}
+    counts = {k: 0 for k in colors}
 
     tracker = Sort(max_age=30, min_hits=3)
-
-    track_state = {}          # {id: {'t1': frame, 'done': bool}}
-    track_class_votes = {}    # {id: {'car':3, 'bus':7}}
+    track_state = {}
+    track_class_votes = {}
     vehicle_speeds = []
 
     frame_id = 0
@@ -297,23 +287,20 @@ def process_video_speed(video_path):
             break
 
         frame_id += 1
+
+        # ✅ RESIZE FRAME
+        frame = cv2.resize(frame, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
+
         results = model(frame)[0]
+        detections, classes = [], []
 
-        detections = []
-        classes = []
-
-        # ===== DETECTION + REFINE =====
         for box in results.boxes:
             cls_id = int(box.cls[0])
             raw_class = model.names[cls_id]
-
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             conf = float(box.conf[0])
 
-            class_name = refine_vehicle_class(
-                raw_class, x1, y1, x2, y2
-            )
-
+            class_name = refine_vehicle_class(raw_class, x1, y1, x2, y2)
             if class_name in counts:
                 detections.append([x1, y1, x2, y2, conf])
                 classes.append(class_name)
@@ -322,13 +309,10 @@ def process_video_speed(video_path):
         tracks = tracker.update(dets_np)
 
         for track in tracks:
-            x1, y1, x2, y2, track_id = track
-            track_id = int(track_id)
-            center_y = int((y1 + y2) / 2)
+            x1, y1, x2, y2, track_id = map(int, track)
+            center_y = (y1 + y2) // 2
 
-            # ===== MATCH CLASS + VOTING =====
-            matched_class = None
-            max_iou = 0
+            matched_class, max_iou = None, 0
             for i, det in enumerate(detections):
                 iou = bbox_iou(track[:4], det[:4])
                 if iou > max_iou and iou > 0.3:
@@ -336,8 +320,7 @@ def process_video_speed(video_path):
                     matched_class = classes[i]
 
             if matched_class:
-                if track_id not in track_class_votes:
-                    track_class_votes[track_id] = {}
+                track_class_votes.setdefault(track_id, {})
                 track_class_votes[track_id][matched_class] = \
                     track_class_votes[track_id].get(matched_class, 0) + 1
 
@@ -345,54 +328,42 @@ def process_video_speed(video_path):
             if stable_class not in counts:
                 continue
 
-            # ===== INIT STATE =====
-            if track_id not in track_state:
-                track_state[track_id] = {
-                    't1': None,
-                    'done': False
-                }
-
+            track_state.setdefault(track_id, {'t1': None, 'done': False})
             state = track_state[track_id]
 
-            # ===== QUA LINE 1 =====
             if state['t1'] is None and center_y >= roi_line1:
                 state['t1'] = frame_id
 
-            # ===== QUA LINE 2 → ĐẾM + TỐC ĐỘ =====
-            if (
-                state['t1'] is not None
-                and not state['done']
-                and center_y >= roi_line2
-            ):
-                t1 = state['t1']
-                t2 = frame_id
-                duration = (t2 - t1) / fps
-
-                speed_kmh = (distance_meters / duration) * 3.6 if duration > 0 else 0
+            if state['t1'] and not state['done'] and center_y >= roi_line2:
+                duration = (frame_id - state['t1']) / fps
+                speed = (distance_meters / duration) * 3.6 if duration > 0 else 0
 
                 vehicle_speeds.append({
                     'id': track_id,
                     'type': stable_class,
-                    'speed': round(speed_kmh, 1)
+                    'speed': round(speed, 1)
                 })
 
                 counts[stable_class] += 1
                 state['done'] = True
 
-            # ===== Vẽ (DÙNG CLASS ỔN ĐỊNH) =====
-            color = colors.get(stable_class, (0, 0, 255))
-            label = f'{stable_class} ID:{track_id}'
-            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
+            color = colors[stable_class]
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
             cv2.putText(
-                frame, label, (int(x1), int(y1) - 10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2
+                frame,
+                f'{stable_class} ID:{track_id}',
+                (x1, y1 - 8),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.6,
+                color,
+                2
             )
 
-        # ===== Vẽ ROI =====
-        cv2.line(frame, (0, roi_line1), (frame.shape[1], roi_line1), (255, 0, 0), 2)
-        cv2.line(frame, (0, roi_line2), (frame.shape[1], roi_line2), (0, 0, 255), 2)
+        cv2.line(frame, (0, roi_line1), (DISPLAY_WIDTH, roi_line1), (255, 0, 0), 2)
+        cv2.line(frame, (0, roi_line2), (DISPLAY_WIDTH, roi_line2), (0, 0, 255), 2)
 
-        cv2.imshow("Giam sat toc do", frame)
+        cv2.imshow(WINDOW_NAME, frame)
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
